@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Writing in Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown</title>
-  <meta name="description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <title>Chapter 3 Linear Regression | Artifex Spring 2022</title>
+  <meta name="description" content="Class materials for Paul 520." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Writing in Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  <meta property="og:title" content="Chapter 3 Linear Regression | Artifex Spring 2022" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta property="og:description" content="Class materials for Paul 520." />
   <meta name="github-repo" content="openscapes/series" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Writing in Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  <meta name="twitter:title" content="Chapter 3 Linear Regression | Artifex Spring 2022" />
   
-  <meta name="twitter:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta name="twitter:description" content="Class materials for Paul 520." />
   
 
-<meta name="author" content="Julie Lowndes" />
+<meta name="author" content="David Reynolds" />
 
 
 <meta name="date" content="2022-02-23" />
@@ -53,8 +53,73 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
@@ -72,22 +137,23 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Mini Bookdown Tutorial</a></li>
+<li><a href="./">UNH Artifex</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#learn-all-about-bookdown"><i class="fa fa-check"></i><b>1.1</b> Learn all about Bookdown</a></li>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions</a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Setting up Bookdown</a>
+<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#get-bookdown-tutorial-going-on-your-local-computer"><i class="fa fa-check"></i><b>2.1</b> Get “bookdown-tutorial” going on your local computer</a></li>
-<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#create-your-awesome-book-github-repo"><i class="fa fa-check"></i><b>2.2</b> Create your “awesome-book” GitHub repo</a></li>
-<li class="chapter" data-level="2.3" data-path="setup.html"><a href="setup.html#turn-bookdown-tutorial-into-awesome-book"><i class="fa fa-check"></i><b>2.3</b> Turn “bookdown-tutorial” into “awesome-book”</a></li>
-<li class="chapter" data-level="2.4" data-path="setup.html"><a href="setup.html#publish-awesome-book"><i class="fa fa-check"></i><b>2.4</b> Publish “awesome-book”</a></li>
-<li class="chapter" data-level="2.5" data-path="setup.html"><a href="setup.html#moving-forward"><i class="fa fa-check"></i><b>2.5</b> Moving forward</a></li>
+<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation</a></li>
+<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1</a></li>
+<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference</a></li>
+<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3</a></li>
+<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Writing in Bookdown</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -100,7 +166,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Making free books with RStudio’s RMarkdown &amp; Bookdown</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Artifex Spring 2022</a>
           </h1>
         </div>
 
@@ -109,13 +175,391 @@
 
             <section class="normal" id="section-">
 <div id="write" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Writing in Bookdown</h1>
-<p>Coming soon:</p>
-<ul>
-<li>Adding chapters</li>
-<li>Citations</li>
-</ul>
+<h1><span class="header-section-number">Chapter 3</span> Linear Regression</h1>
+<div id="estimation" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimation</h2>
+<p>Suppose we want to model a response variable <span class="math inline">\(Y\)</span> in terms of some predictor variables, <span class="math inline">\((X_1, X_2, X_3)\)</span>. One very general form of the model would be:</p>
+<p><span class="math display">\[\begin{equation}
+Y = f(X_1, X_2, X_3) + \epsilon
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(f\)</span> is some unknown function and <span class="math inline">\(\epsilon\)</span> is the error. Usually the exact function <span class="math inline">\(f\)</span> is unknown and we have to make assumptions about it. One such assumption is that <span class="math inline">\(f\)</span> is a linear function, which implies the following model:</p>
+<p><span class="math display">\[\begin{equation}
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2+ \beta_3 X_3 + \epsilon.
+\end{equation}\]</span></p>
+<p>In this model, <span class="math inline">\((\beta_0, \beta_1, \beta_2, \beta_3)\)</span> are unknown parameters. Thus, the <em>estimation</em> problem involves trying to estimate this set of coefficients.</p>
+<p>Although this model may seem restrictive and simple, it is an extremely useful tool for gathering insight about data. It also introduces fundamental concepts to more complex statistical/ machine learning methods.</p>
+<p><strong>Example</strong></p>
+<p>Let’s do a simple example regression analysis. We will use the county dataset from the openintro package to assess the linear association between the proportion of high school graduates in a country and the proportion of the county living in poverty.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+hs_grad_2019
+</th>
+<th style="text-align:right;">
+poverty_2019
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+88.5
+</td>
+<td style="text-align:right;">
+15.2
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+90.8
+</td>
+<td style="text-align:right;">
+10.4
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+73.2
+</td>
+<td style="text-align:right;">
+30.7
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+79.1
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+80.5
+</td>
+<td style="text-align:right;">
+13.6
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+74.7
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<p>A good first step to any analysis is to visually explore the data. For this particular case, it is hard to beat a scatterplot for visualization.</p>
+<pre><code>## Warning: Removed 1876 rows containing missing values (geom_point).</code></pre>
+<p><img src="series_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>It seems like fitting a linear regression to this data is reasonable. To do so, we only need a simple function in R, <code>lm</code>. Let’s fit the model and see what we get.</p>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+77.4447213
+</td>
+<td style="text-align:right;">
+2.0066198
+</td>
+<td style="text-align:right;">
+38.59462
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+hs_grad_2019
+</td>
+<td style="text-align:right;">
+-0.7088124
+</td>
+<td style="text-align:right;">
+0.0228897
+</td>
+<td style="text-align:right;">
+-30.96645
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>How can we write down this model? What is the interpretation?</p>
+<p>Next, we will discuss where these estimates come from.</p>
+<p><strong>Estimation Details</strong></p>
+<p>Let’s briefly discuss <a href="https://tutorial.math.lamar.edu/classes/calci/optimization.aspx">optimization</a>. Suppose we have the function</p>
+<p><span class="math display">\[\begin{equation}
+f(x) = -x^2.
+\end{equation}\]</span></p>
+<p>and we want to know the value of <span class="math inline">\(x\)</span> that maximizes this function. How would we do this?</p>
+<p>The estimation problem in linear regression is no different. Let’s consider the simple linear regression model</p>
+<p><span class="math display">\[\begin{equation}
+y_i = \beta x_i + \epsilon_i.
+\end{equation}\]</span></p>
+<p>Our estimate of <span class="math inline">\(\beta\)</span>, which we will call <span class="math inline">\(\hat{\beta}\)</span>, will be the value of <span class="math inline">\(\beta\)</span> that minimizes the sum of squared differences between the observed and the predicted values. That is, it is the <span class="math inline">\(\beta\)</span> that minimizes this function:</p>
+<p><span class="math display">\[\begin{align}
+f(\beta) &amp;= \sum_i (y_i - \hat{y}_i)^2 \\
+&amp;= \sum_i (y_i - \beta x_i)^2 
+\end{align}\]</span></p>
+<p>What is this value?</p>
+</div>
+<div id="exercises-1" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Exercises 1</h2>
+<ol style="list-style-type: decimal">
+<li>Among counties with greater than 95% high school graduates, which county has the highest unemployment rate?</li>
+<li>Using the command <code>data()</code>, find a dataset that interests you, generate a hypothesis regarding a linear association between two variables, and assess the hypothesis by first visualizing (using a scatterplot) and then fitting a linear regression model.</li>
+<li>(Optional) Repeat the optimization analysis above for the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_i\)</span>, taking partial derivatives and solving.</li>
+</ol>
+</div>
+<div id="inference" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Inference</h2>
+<p>Last time, we discussed a few ways to estimate the slope coefficient in a linear regression model. This yields a point estimate. The other key ingredient for inference is to determine how much uncertainty there is in our estimate. For the case of <span class="math inline">\(\hat{\beta_1}\)</span>, we want to know how much this estimate varies from sample to sample for the specified sample size. That is, we want to know the variance of the estimate:</p>
+<p><span class="math display">\[\begin{align}
+Var(\hat{\beta_1}).
+\end{align}\]</span></p>
+<p>To find what this is, let’s just try to figure out the variance directly, using the analytic formula for <span class="math inline">\(\hat{\beta_1}\)</span> in simple linear regression:</p>
+<p><span class="math display">\[\begin{align}
+Var \bigg( \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2 }  \bigg).
+\end{align}\]</span></p>
+<p>To carry out this calculation, recall that <span class="math inline">\(\text{var}(cx) = c^2 \text{var}(x)\)</span>. Also, recall the model assumption of independence across observations. After carrying out this calculation, we can show that,</p>
+<p><span class="math display">\[\begin{equation}
+Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
+\end{equation}\]</span></p>
+<p>How does variation in <span class="math inline">\(\hat{\beta}\)</span> respond to changes in sample size? How about to variation in the predictor?</p>
+<p>Before moving on, let’s write some code to make sure our calculations correspond with those generated by <code>lm</code>.</p>
+<table style="width:88%;">
+<colgroup>
+<col width="25%" />
+<col width="15%" />
+<col width="18%" />
+<col width="13%" />
+<col width="15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Estimate</th>
+<th align="center">Std. Error</th>
+<th align="center">t value</th>
+<th align="center">Pr(&gt;|t|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>(Intercept)</strong></td>
+<td align="center">1.984</td>
+<td align="center">0.0329</td>
+<td align="center">60.29</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>X</strong></td>
+<td align="center">3.006</td>
+<td align="center">0.03181</td>
+<td align="center">94.52</td>
+<td align="center">0</td>
+</tr>
+</tbody>
+</table>
+<table style="width:88%;">
+<caption>Fitting linear model: y ~ X</caption>
+<colgroup>
+<col width="20%" />
+<col width="30%" />
+<col width="12%" />
+<col width="23%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Observations</th>
+<th align="center">Residual Std. Error</th>
+<th align="center"><span class="math inline">\(R^2\)</span></th>
+<th align="center">Adjusted <span class="math inline">\(R^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1000</td>
+<td align="center">1.04</td>
+<td align="center">0.8995</td>
+<td align="center">0.8994</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## [1] 0.03180874</code></pre>
+<p>In this case, we are able to obtain not only the variation of the estimate but also the distribution of the estimate as well as the test statistic,</p>
+<p><span class="math display">\[\begin{align}
+T = \frac{\hat{\beta_1} - \beta}{\sqrt{\text{var}\beta}} \sim t_{n-2}
+\end{align}\]</span></p>
+<p>This allows us to compute confidence intervals. For instance, if we want to compute a (1-<span class="math inline">\(\alpha\)</span>) confidence interval, note that:</p>
+<p><span class="math display">\[\begin{align}
+P(t_{\alpha/2} &lt; T &lt; t_{1-\alpha/2}) = (1-\alpha)
+\end{align}\]</span></p>
+<p><strong>Bootstrap</strong></p>
+<p>In more realistic scenarios, we may not be able to obtain analytic results for the variance of an estimator. Fortunately, there are some workarounds. One such method is the bootstrap. The bootstrap is incredibly simple and effective. Let’s denote our sample as <span class="math inline">\(\mathbf{X} = (X_1,\ldots,X_n)\)</span> and the statistic as <span class="math inline">\(T(\mathbf{X})\)</span>. The algorithm consists two key steps. For <span class="math inline">\(i \in 1,\ldots,n\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>Resample the original data (with replacement). This results in a <em>new</em> dataset, <span class="math inline">\(\mathbf{X^\star}\)</span>, that is the same size as the original data.</li>
+<li>Compute the desired statistic on the resampled data. This results in a number, <span class="math inline">\(s_i = T(\mathbf{X}^\star)\)</span></li>
+</ol>
+<p>This results in a sample of statistics <span class="math inline">\(\mathbf{s}=(s_1, \ldots,s_B)\)</span>. We can then estimate the variance of the statistic as the sample variance: <span class="math inline">\(\text{var}(\mathbf{s})\)</span>.</p>
+<p>Let’s first do a simple example before returning to linear regression. Suppose we would like to estimate the variance of the sample mean. Let’s write a bootstrap algorithm to do this.</p>
+<pre><code>## [1] 0.51801949 0.01611761</code></pre>
+<p>Now, back to regression. Let’s use the same framework to estimate the variance of the slope coefficient.</p>
+<pre><code>## [1] 0.03310038</code></pre>
+</div>
+<div id="exercises-3" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Exercises 3</h2>
+<ol style="list-style-type: decimal">
+<li><p>Run the code below to simulate data from a <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a>. Generate a histogram and describe it (where is the mode? what is the skew?)</p></li>
+<li><p>What is the relationship between the sample mean and median? What do you think is the relationship in the variability in these two sample statistics (i.e., if we were to draw another sample from this distribution, which one would change more on average)?</p></li>
+<li><p>Using the bootstrap, generate a bootstrap sample of sample means (try to use the code above as little as possible). Use <span class="math inline">\(B = 10^4\)</span>. What is the mean and standard deviation of this sample?</p></li>
+<li><p>Using the bootstrap, generate a bootstrap sample of sample medians (try to use the code above as little as possible). Use <span class="math inline">\(B = 10^4\)</span>. What is the mean and standard deviation of this sample?</p></li>
+<li><p>Plot histograms of both bootstrap samples on one graphic. <a href="https://stackoverflow.com/questions/3541713/how-to-plot-two-histograms-together-in-r">See hints on this page</a></p></li>
+<li><p>Going back to the hypothesis you tested in exercise 1 (question 2), estimate the standard deviation of the slope coefficient using bootstrap. How does it compare with the output generated by <code>lm</code>.</p></li>
+<li><p>(Challenge question) The central limit theorem (CLT) establishes that the distribution of the sample mean is approximately normal with mean equal to the population mean and variance equal to the population variance divided by the sample size (<span class="math inline">\(\sigma^2/n\)</span>). How does the distribution of sample means generated in 3 compare with the distribution implied by the CLT? You will need to find the population mean and variance of the <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a> that we sampled from.</p></li>
+</ol>
+</div>
+<div id="matrix-representation" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Matrix representation</h2>
+<p>Let’s define the following matrices,</p>
+<p><span class="math display">\[A = \begin{bmatrix}
+7 &amp; 9 &amp; 2\\
+1 &amp; 4 &amp; 6\\
+1 &amp; 8 &amp; 6
+\end{bmatrix} 
+\qquad
+B = \begin{bmatrix}
+7 &amp; 9 &amp; 2\\
+2 &amp; 1 &amp; 1\\
+3 &amp; 1 &amp; 2
+\end{bmatrix} \]</span></p>
+<p>In R, input the values of a matrix by column using either <code>matrix</code> or <code>array</code>. For example, matrix <span class="math inline">\(A\)</span> above is:
+<code>matrix(c(7,1,1,9,4,8,2,6,6), nrow = 3)</code> or <code>array(c(7,1,1,9,4,8,2,6,6), dim = c(3,3))</code>. Matrix operations in R include:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Matrix addition</strong>: <span class="math inline">\(A + B\)</span>, <code>A + B</code></li>
+<li><strong>Matrix multiplication</strong>: <span class="math inline">\(AB\)</span>, <code>A %*% B</code></li>
+<li><strong>Inverting a matrix</strong>: <span class="math inline">\(A^{-1}\)</span>, <code>solve(A)</code></li>
+<li><strong>Transposing a matrix</strong>: <span class="math inline">\(A^ \top\)</span>, <code>t(A)</code></li>
+</ol>
+<p>Let’s do some practice.</p>
+<p><strong>Exercises 4A</strong></p>
+<ol style="list-style-type: decimal">
+<li>What is <span class="math inline">\(AB\)</span>. Compute by hand and verify with R.</li>
+<li>What is <span class="math inline">\(A^{-1}\)</span>. Compute by hand and verify with R.</li>
+<li>What is <span class="math inline">\(A^\top B\)</span>. Compute by hand and verify with R.</li>
+</ol>
+<p>Now let’s shift a little to working with ‘general’ matrices and construct expressions for some matrix operations. In particular, let’s work with the following matrices,</p>
+<p><span class="math display">\[X = \begin{bmatrix}
+x_{11} &amp; x_{12}\\
+x_{21} &amp; x_{22}
+\end{bmatrix}
+\qquad
+Y = \begin{bmatrix}
+y_{11} &amp; y_{12}\\
+y_{21} &amp; y_{22}
+\end{bmatrix} \]</span></p>
+<p><strong>Exercises 4B</strong></p>
+<ol style="list-style-type: decimal">
+<li>What is <span class="math inline">\(X^{-1}\)</span></li>
+<li>What is <span class="math inline">\(X ^ \top\)</span></li>
+<li>What is <span class="math inline">\(XY\)</span> (i.e., <span class="math inline">\(X\)</span> times <span class="math inline">\(Y\)</span>; use <span class="math inline">\(\Sigma\)</span> notation)</li>
+<li>What is <span class="math inline">\((XY)^{-1}\)</span></li>
+</ol>
+<p>Back to linear regression. By representing our model in matrix notation, we can write our model as,</p>
+<p><span class="math display">\[\begin{equation}
+Y = X \beta + \epsilon,
+\end{equation}\]</span></p>
+<p>for the case where we have <span class="math inline">\(p\)</span> predictors and <span class="math inline">\(n\)</span> observations. In this case, the design matrix <span class="math inline">\(X\)</span> has dimension <span class="math inline">\(n \times (p+1)\)</span> and <span class="math inline">\(Y\)</span> has dimension <span class="math inline">\(n \times 1\)</span>. Using this matrix representation of the model, it can be shown that the least squares estimate for <span class="math inline">\(\beta\)</span> is:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{\beta} = (X^\top X)^{-1} (X^\top Y)
+\end{equation}\]</span></p>
+<p>Additionally, the variance/ covariance for <span class="math inline">\(\hat{\beta}\)</span> can be packaged up into a matrix:</p>
+<p><span class="math display">\[\begin{equation}
+\hat{\beta} = \sigma^2 (X^\top X)^{-1}
+\end{equation}\]</span></p>
+<p>For the case of SLR, the variance matrix for <span class="math inline">\((\hat{\beta_0}, \hat{\beta_1})\)</span> is:</p>
+<p><span class="math display">\[Var(\hat{\boldsymbol{\beta}}) = \begin{bmatrix}
+Var(\hat{\beta_0}) &amp; Cov(\hat{\beta_0}, \hat{\beta_1} )\\
+Cov(\hat{\beta_0}, \hat{\beta_1} ) &amp; Var(\hat{\beta_1})
+\end{bmatrix}\]</span></p>
+<p>Furthermore, the matrix representation For the case of simple linear regression (SLR), is:</p>
+<p><span class="math display">\[
+\begin{bmatrix} 
+    y_1  \\
+    \vdots  \\
+    y_n  
+    \end{bmatrix} 
+    \qquad
+    = \begin{bmatrix} 
+    1 &amp; x_1 \\
+    \vdots &amp; \vdots \\
+    1 &amp; x_n 
+    \end{bmatrix}
+    \begin{bmatrix} 
+    \beta_0 \\
+    \beta_1 
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    e_1  \\
+    \vdots  \\
+    e_n  
+    \end{bmatrix}
+\]</span></p>
+<p><strong>Exercises 4C</strong></p>
+<p>The following questions pertain to the simple linear regression (SLR) case in which the design matrix, <span class="math inline">\(X\)</span>, is:</p>
+<p><span class="math display">\[
+    X = \begin{bmatrix} 
+    1 &amp; x_1 \\
+    \vdots &amp; \vdots \\
+    1 &amp; x_n 
+    \end{bmatrix}
+\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>What is <span class="math inline">\(\sigma^2 (X^\top X)^{-1}\)</span>? (write it out using <span class="math inline">\(\Sigma\)</span> notation, similar to the last exercise set).</p></li>
+<li><p>Take the lower right hand entry from the matrix above. Does it match what we got for <span class="math inline">\(Var(\hat{\beta_1})\)</span> in the inference section below (a little bit of simplification is required)?</p></li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
+\end{equation}\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>For the data below, compute the least squares estimate of <span class="math inline">\(\beta\)</span> using the expression <span class="math inline">\(\hat{\beta} = (X^\top X)^{-1} (X^\top Y)\)</span>. Verify using <code>lm</code>.</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="write.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb10-2"><a href="write.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb10-3"><a href="write.html#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n), <span class="fu">rnorm</span>(n)), <span class="at">nrow =</span> n ) <span class="co"># design matrix X</span></span>
+<span id="cb10-4"><a href="write.html#cb10-4" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb10-5"><a href="write.html#cb10-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> X <span class="sc">%*%</span> beta, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
 
+</div>
 </div>
             </section>
 
@@ -177,6 +621,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

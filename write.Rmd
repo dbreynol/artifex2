@@ -1,6 +1,357 @@
-# Writing in Bookdown {#write}
+# Linear Regression {#write}
 
-Coming soon: 
+## Estimation
 
-- Adding chapters
-- Citations
+
+Suppose we want to model a response variable $Y$ in terms of some predictor variables, $(X_1, X_2, X_3)$. One very general form of the model would be:
+
+\begin{equation}
+Y = f(X_1, X_2, X_3) + \epsilon
+\end{equation}
+
+where $f$ is some unknown function and $\epsilon$ is the error. Usually the exact function $f$ is unknown and we have to make assumptions about it. One such assumption is that $f$ is a linear function, which implies the following model:
+
+\begin{equation}
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2+ \beta_3 X_3 + \epsilon.
+\end{equation}
+
+In this model, $(\beta_0, \beta_1, \beta_2, \beta_3)$ are unknown parameters. Thus, the *estimation* problem involves trying to estimate this set of coefficients.
+
+Although this model may seem restrictive and simple, it is an extremely useful tool for gathering insight about data. It also introduces fundamental concepts to more complex statistical/ machine learning methods.
+
+
+**Example**
+
+Let's do a simple example regression analysis. We will use the county dataset from the openintro package to assess the linear association between the proportion of high school graduates in a country and the proportion of the county living in poverty. 
+
+```{r}
+# this chunk requires tidyverse and kableextra packages
+dat = county_complete %>% select(hs_grad_2019, poverty_2019) # select response, predictor
+kable(head(dat)) %>%
+  kable_styling(position = "center") # kable prints a dataframe 
+```
+
+A good first step to any analysis is to visually explore the data. For this particular case, it is hard to beat a scatterplot for visualization.
+
+```{r}
+ggplot(dat, aes(x= hs_grad_2019, y = poverty_2019)) + 
+  geom_point(alpha = 0.5) + 
+  theme_minimal() + 
+  ggtitle("High School Graduation Rate versus Poverty - 2019 Data")
+```
+
+It seems like fitting a linear regression to this data is reasonable. To do so, we only need a simple function in R, <code>lm</code>. Let's fit the model and see what we get.
+
+```{r}
+mod = lm(poverty_2019 ~ hs_grad_2019, data = dat)
+kable(tidy(mod)) %>% kable_styling(position = "center") # requires broom package
+```
+
+How can we write down this model? What is the interpretation?
+
+Next, we will discuss where these estimates come from. 
+
+**Estimation Details**
+
+Let's briefly discuss [optimization](https://tutorial.math.lamar.edu/classes/calci/optimization.aspx). Suppose we have the function
+
+\begin{equation}
+f(x) = -x^2.
+\end{equation}
+
+and we want to know the value of $x$ that maximizes this function. How would we do this? 
+
+The estimation problem in linear regression is no different. Let's consider the simple linear regression model
+
+\begin{equation}
+y_i = \beta x_i + \epsilon_i.
+\end{equation}
+
+Our estimate of $\beta$, which we will call $\hat{\beta}$, will be the value of $\beta$ that minimizes the sum of squared differences between the observed and the predicted values. That is, it is the $\beta$ that minimizes this function:
+
+\begin{align}
+f(\beta) &= \sum_i (y_i - \hat{y}_i)^2 \\
+&= \sum_i (y_i - \beta x_i)^2 
+\end{align}
+
+What is this value?
+
+## Exercises 1
+
+1. Among counties with greater than 95% high school graduates, which county has the highest unemployment rate?
+2. Using the command <code>data()</code>, find a dataset that interests you, generate a hypothesis regarding a linear association between two variables, and assess the hypothesis by first visualizing (using a scatterplot) and then fitting a linear regression model.
+3. (Optional) Repeat the optimization analysis above for the model $y_i = \beta_0 + \beta_1x_i$, taking partial derivatives and solving.
+
+## Inference 
+
+Last time, we discussed a few ways to estimate the slope coefficient in a linear regression model. This yields a point estimate. The other key ingredient for inference is to determine how much uncertainty there is in our estimate. For the case of $\hat{\beta_1}$, we want to know how much this estimate varies from sample to sample for the specified sample size. That is, we want to know the variance of the estimate:
+
+\begin{align}
+Var(\hat{\beta_1}).
+\end{align}
+
+To find what this is, let's just try to figure out the variance directly, using the analytic formula for $\hat{\beta_1}$ in simple linear regression:
+
+\begin{align}
+Var \bigg( \frac{\sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^n (x_i - \bar{x})^2 }  \bigg).
+\end{align}
+
+To carry out this calculation, recall that $\text{var}(cx) = c^2 \text{var}(x)$. Also, recall the model assumption of independence across observations. After carrying out this calculation, we can show that,
+
+\begin{equation}
+Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
+\end{equation}
+
+How does variation in $\hat{\beta}$ respond to changes in sample size? How about to variation in the predictor?
+
+Before moving on, let's write some code to make sure our calculations correspond with those generated by <code>lm</code>.
+
+```{r}
+set.seed(1)
+n = 1000 # number of observations
+X = rnorm(n) # predictor
+beta_0 = 2 # intercept
+beta_1 = 3 # slope
+y = rnorm(n , mean = beta_0 + beta_1 * X, sd = 1 )
+
+mod = lm(y ~ X)
+
+pander(summary(mod))
+
+```
+
+
+```{r}
+sig.sq = sum(mod$residuals^2)/df.residual(mod) # sigma squared est
+sqrt(sig.sq/ (var(X) * (n-1) ) )
+```
+
+In this case, we are able to obtain not only the variation of the estimate but also the distribution of the estimate as well as the test statistic,
+
+\begin{align}
+T = \frac{\hat{\beta_1} - \beta}{\sqrt{\text{var}\beta}} \sim t_{n-2}
+\end{align}
+
+This allows us to compute confidence intervals. For instance, if we want to compute a (1-$\alpha$) confidence interval, note that: 
+
+\begin{align}
+P(t_{\alpha/2} < T < t_{1-\alpha/2}) = (1-\alpha)
+\end{align}
+
+**Bootstrap**
+
+In more realistic scenarios, we may not be able to obtain analytic results for the variance of an estimator. Fortunately, there are some workarounds. One such method is the bootstrap. The bootstrap is incredibly simple and effective. Let's denote our sample as $\mathbf{X} = (X_1,\ldots,X_n)$ and the statistic as $T(\mathbf{X})$. The algorithm consists two key steps. For $i \in 1,\ldots,n$:
+
+1. Resample the original data (with replacement). This results in a *new* dataset, $\mathbf{X^\star}$, that is the same size as the original data.
+2. Compute the desired statistic on the resampled data. This results in a number,  $s_i = T(\mathbf{X}^\star)$
+
+This results in a sample of statistics $\mathbf{s}=(s_1, \ldots,s_B)$. We can then estimate the variance of the statistic as the sample variance: $\text{var}(\mathbf{s})$. 
+
+Let's first do a simple example before returning to linear regression. Suppose we would like to estimate the variance of the sample mean. Let's write a bootstrap algorithm to do this. 
+
+```{r}
+# first, let's sample some data
+set.seed(2)
+orig.sample = rexp(1000, rate = 2)
+
+B = 1e4
+means = rep(0, B)
+for(i in 1:B) {
+  newdat.inds = sample(1000, 1000, replace = T)
+  newdat = orig.sample[newdat.inds]
+  means[i] = mean(newdat)
+}
+
+print(c(mean(means), sd(means)))
+```
+
+
+
+Now, back to regression. Let's use the same framework to estimate the variance of the slope coefficient.
+
+```{r}
+
+nIter = 10000
+beta.vec = array(NA, dim = c(nIter, 2))
+
+for(i in 1:nIter) {
+  inds = sample(n, n, replace = T)
+  y.t = y[inds]
+  X.t = X[inds]
+  m = lm(y.t ~ X.t)
+  beta.vec[i, ] = coefficients(m)
+}
+
+
+print(sd(beta.vec[,2]))
+
+```
+
+
+## Exercises 3 
+
+1. Run the code below to simulate data from a [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution). Generate a histogram and describe it (where is the mode? what is the skew?)
+
+```{r}
+set.seed(2)
+ns = 1000
+gam.sample = rgamma(ns, shape = 1, rate = 2) # alpha = 1, beta = 2
+```
+
+2. What is the relationship between the sample mean and median? What do you think is the relationship in the variability in these two sample statistics (i.e., if we were to draw another sample from this distribution, which one would change more on average)?
+
+3. Using the bootstrap, generate a bootstrap sample of sample means (try to use the code above as little as possible). Use $B = 10^4$. What is the mean and standard deviation of this sample?
+
+4. Using the bootstrap, generate a bootstrap sample of sample medians (try to use the code above as little as possible). Use $B = 10^4$. What is the mean and standard deviation of this sample?
+
+5. Plot histograms of both bootstrap samples on one graphic. [See hints on this page](https://stackoverflow.com/questions/3541713/how-to-plot-two-histograms-together-in-r)
+
+6. Going back to the hypothesis you tested in exercise 1 (question 2), estimate the standard deviation of the slope coefficient using bootstrap. How does it compare with the output generated by <code>lm</code>.
+
+7. (Challenge question) The central limit theorem (CLT) establishes that the distribution of the sample mean is approximately normal with mean equal to the population mean and variance equal to the population variance divided by the sample size ($\sigma^2/n$). How does the distribution of sample means generated in 3 compare with the distribution implied by the CLT? You will need to find the population mean and variance of the [gamma distribution](https://en.wikipedia.org/wiki/Gamma_distribution) that we sampled from.
+
+
+
+## Matrix representation
+
+Let's define the following matrices,
+
+\[A = \begin{bmatrix}
+7 & 9 & 2\\
+1 & 4 & 6\\
+1 & 8 & 6
+\end{bmatrix} 
+\qquad
+B = \begin{bmatrix}
+7 & 9 & 2\\
+2 & 1 & 1\\
+3 & 1 & 2
+\end{bmatrix} \]
+
+In R, input the values of a matrix by column using either <code>matrix</code> or <code>array</code>. For example, matrix $A$ above is:
+<code>matrix(c(7,1,1,9,4,8,2,6,6), nrow = 3)</code> or <code>array(c(7,1,1,9,4,8,2,6,6), dim = c(3,3))</code>. Matrix operations in R include:
+
+1. **Matrix addition**: $A + B$, <code>A + B</code>
+2. **Matrix multiplication**: $AB$, <code>A %*% B</code>
+3. **Inverting a matrix**: $A^{-1}$, <code>solve(A)</code>
+4. **Transposing a matrix**: $A^ \top$, <code>t(A)</code>
+
+Let's do some practice.
+
+**Exercises 4A**
+
+1. What is $AB$. Compute by hand and verify with R.
+2. What is $A^{-1}$. Compute by hand and verify with R.
+3. What is $A^\top B$. Compute by hand and verify with R.
+
+Now let's shift a little to working with 'general' matrices and construct expressions for some matrix operations. In particular, let's work with the following matrices,
+
+\[X = \begin{bmatrix}
+x_{11} & x_{12}\\
+x_{21} & x_{22}
+\end{bmatrix}
+\qquad
+Y = \begin{bmatrix}
+y_{11} & y_{12}\\
+y_{21} & y_{22}
+\end{bmatrix} \]
+
+**Exercises 4B**
+
+1. What is $X^{-1}$
+2. What is $X ^ \top$
+2. What is $XY$ (i.e., $X$ times $Y$; use $\Sigma$ notation)
+3. What is $(XY)^{-1}$
+
+Back to linear regression. By representing our model in matrix notation, we can write our model as,
+
+\begin{equation}
+Y = X \beta + \epsilon,
+\end{equation}
+
+for the case where we have $p$ predictors and $n$ observations. In this case, the design matrix $X$ has dimension $n \times (p+1)$ and $Y$ has dimension $n \times 1$. Using this matrix representation of the model, it can be shown that the least squares estimate for $\beta$ is:
+
+\begin{equation}
+\hat{\beta} = (X^\top X)^{-1} (X^\top Y)
+\end{equation}
+
+Additionally, the variance/ covariance for $\hat{\beta}$ can be packaged up into a matrix:
+
+\begin{equation}
+\hat{\beta} = \sigma^2 (X^\top X)^{-1}
+\end{equation}
+
+For the case of SLR, the variance matrix for $(\hat{\beta_0}, \hat{\beta_1})$ is:
+
+\[Var(\hat{\boldsymbol{\beta}}) = \begin{bmatrix}
+Var(\hat{\beta_0}) & Cov(\hat{\beta_0}, \hat{\beta_1} )\\
+Cov(\hat{\beta_0}, \hat{\beta_1} ) & Var(\hat{\beta_1})
+\end{bmatrix}\] 
+
+Furthermore, the matrix representation For the case of simple linear regression (SLR), is:
+
+\[
+\begin{bmatrix} 
+    y_1  \\
+    \vdots  \\
+    y_n  
+    \end{bmatrix} 
+    \qquad
+    = \begin{bmatrix} 
+    1 & x_1 \\
+    \vdots & \vdots \\
+    1 & x_n 
+    \end{bmatrix}
+    \begin{bmatrix} 
+    \beta_0 \\
+    \beta_1 
+    \end{bmatrix} + 
+    \begin{bmatrix}
+    e_1  \\
+    \vdots  \\
+    e_n  
+    \end{bmatrix}
+\]
+
+**Exercises 4C**
+
+The following questions pertain to the simple linear regression (SLR) case in which the design matrix, $X$, is:
+
+\[
+    X = \begin{bmatrix} 
+    1 & x_1 \\
+    \vdots & \vdots \\
+    1 & x_n 
+    \end{bmatrix}
+\]
+
+
+
+1. What is $\sigma^2 (X^\top X)^{-1}$? (write it out using $\Sigma$ notation, similar to the last exercise set). 
+
+2. Take the lower right hand entry from the matrix above. Does it match what we got for $Var(\hat{\beta_1})$ in the inference section below (a little bit of simplification is required)?
+
+\begin{equation}
+Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
+\end{equation}
+
+3. For the data below, compute the least squares estimate of $\beta$ using the expression $\hat{\beta} = (X^\top X)^{-1} (X^\top Y)$. Verify using <code>lm</code>.
+
+
+```{r echo=T}
+set.seed(1)
+n = 500
+X = matrix( c(rep(1,n), rnorm(n)), nrow = n ) # design matrix X
+beta = c(1,2)
+y = rnorm(n, mean = X %*% beta, sd = 1)
+```
+
+
+
+
+
+
+
+
+
+

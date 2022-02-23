@@ -4,24 +4,24 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Setting up Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown</title>
-  <meta name="description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <title>Chapter 2 R Fundamentals | Artifex Spring 2022</title>
+  <meta name="description" content="Class materials for Paul 520." />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Setting up Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  <meta property="og:title" content="Chapter 2 R Fundamentals | Artifex Spring 2022" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta property="og:description" content="Class materials for Paul 520." />
   <meta name="github-repo" content="openscapes/series" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Setting up Bookdown | Making free books with RStudio’s RMarkdown &amp; Bookdown" />
+  <meta name="twitter:title" content="Chapter 2 R Fundamentals | Artifex Spring 2022" />
   
-  <meta name="twitter:description" content="A mini bookdown tutorial book on how to make bookdown books." />
+  <meta name="twitter:description" content="Class materials for Paul 520." />
   
 
-<meta name="author" content="Julie Lowndes" />
+<meta name="author" content="David Reynolds" />
 
 
 <meta name="date" content="2022-02-23" />
@@ -53,8 +53,73 @@
 
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
@@ -72,22 +137,23 @@
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Mini Bookdown Tutorial</a></li>
+<li><a href="./">UNH Artifex</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#learn-all-about-bookdown"><i class="fa fa-check"></i><b>1.1</b> Learn all about Bookdown</a></li>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions</a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Setting up Bookdown</a>
+<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#get-bookdown-tutorial-going-on-your-local-computer"><i class="fa fa-check"></i><b>2.1</b> Get “bookdown-tutorial” going on your local computer</a></li>
-<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#create-your-awesome-book-github-repo"><i class="fa fa-check"></i><b>2.2</b> Create your “awesome-book” GitHub repo</a></li>
-<li class="chapter" data-level="2.3" data-path="setup.html"><a href="setup.html#turn-bookdown-tutorial-into-awesome-book"><i class="fa fa-check"></i><b>2.3</b> Turn “bookdown-tutorial” into “awesome-book”</a></li>
-<li class="chapter" data-level="2.4" data-path="setup.html"><a href="setup.html#publish-awesome-book"><i class="fa fa-check"></i><b>2.4</b> Publish “awesome-book”</a></li>
-<li class="chapter" data-level="2.5" data-path="setup.html"><a href="setup.html#moving-forward"><i class="fa fa-check"></i><b>2.5</b> Moving forward</a></li>
+<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation</a></li>
+<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1</a></li>
+<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference</a></li>
+<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3</a></li>
+<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Writing in Bookdown</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
 
@@ -100,7 +166,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Making free books with RStudio’s RMarkdown &amp; Bookdown</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Artifex Spring 2022</a>
           </h1>
         </div>
 
@@ -109,77 +175,59 @@
 
             <section class="normal" id="section-">
 <div id="setup" class="section level1" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Setting up Bookdown</h1>
-<p>The <code>bookdown</code> package and <a href="https://bookdown.org/yihui/bookdown/get-started.html">book</a> is definitely the best way to get started. However, in practice I always find myself copying an existing, working book and modifying it instead of starting from scratch. So this tutorial is going to have you do that as well, using this book as the one you copy from.</p>
-<p>[more setup here]</p>
-<p>You will have to name your book’s repository. To differentiate your book’s repo name from this “bookdown-tutorial” repo, here we’ll call your book “awesome-book” <em>but you should consistently name it what you want to name it</em>.</p>
-<div id="get-bookdown-tutorial-going-on-your-local-computer" class="section level2" number="2.1">
-<h2><span class="header-section-number">2.1</span> Get “bookdown-tutorial” going on your local computer</h2>
-<ol style="list-style-type: decimal">
-<li>Go to <a href="https://github.com/jules32/bookdown-tutorial" class="uri">https://github.com/jules32/bookdown-tutorial</a></li>
-<li>Click the green “clone or download” button and DOWNLOAD ZIP.</li>
-<li>Locally on your computer, unzip the folder, save it in a reasonable place</li>
-<li>Rename 2 things from “bookdown-tutorial” to “awesome-book.” You can do this in the finder/windows explorer:</li>
-</ol>
+<h1><span class="header-section-number">Chapter 2</span> R Fundamentals</h1>
+<div id="functions" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Functions</h2>
+<p>R comes with a great amount of built-in functionality. However, in a typical data analysis project, you will quickly find that you need to write your own customized functions to carry out tasks specific to your needs.</p>
+<p>One of the best ways to improve your reach as a data scientist is to write functions. Functions allow you to automate common tasks in a more powerful and general way than copy-and-pasting.</p>
+<p>To start, let’s assume that we have a vector of data, <span class="math inline">\(x\)</span> and we want compute the sum of the cubed value for each element. If we only need to do this once, we may not need to explicitly define a function but, rather, can just perform the calculation:</p>
+<pre><code>## [1] 3.272486</code></pre>
+<p>If we need to do this for many different vectors throughout our program, it may be more efficient to write a function to carry out this task. In this case we may write,</p>
+<pre><code>## [1] 3.272486</code></pre>
+<p>We could also assume that we do not have a built in function that computes the standard deviation (of course, there is). We could write this function as,</p>
+<pre><code>## [1] 0.9610394</code></pre>
+<pre><code>## [1] 0.9610394</code></pre>
+<p>A function has three parts:</p>
 <ul>
-<li>the folder itself (that you just unzipped)</li>
-<li>the .Rproj file</li>
+<li><p>The <code>formals()</code>, the list of arguments that control how you call the function.</p></li>
+<li><p>The <code>body()</code>, the code inside the function.</p></li>
+<li><p>The <code>environment()</code>, the data structure that determines how the function finds the values associated with the names.</p></li>
 </ul>
-<ol style="list-style-type: decimal">
-<li>Double-click the .Rproj file to launch RStudio</li>
-<li>Install packages and restart</li>
-</ol>
-<ul>
-<li><code>install.packages("bookdown")</code><br />
-</li>
-<li><code>install.packages("usethis")</code><br />
-</li>
-<li>Use the menu item Session &gt; Restart R<br />
-</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li>Click on the Build tab in the top right pane</li>
-<li>Click on Build Book!</li>
-</ol>
-<p>Nice job! Now let’s make it yours, and connect it to GitHub.</p>
+<p>To further illustrate the possible arguments our functions can take, let’s try to make a function that takes two arguments: the first is a numeric vector and the second is a confidence level. Then, the function returns a confidence interval for <span class="math inline">\(\mu\)</span> at the desired confidence level. Recall that a confidence interval for <span class="math inline">\(\mu\)</span> takes the following form:</p>
+<p><span class="math display">\[\begin{equation}
+\bar{x} \pm t^\star \hat{\sigma}/\sqrt{n}
+\end{equation}\]</span></p>
+<pre><code>## [1] 0.4626294 0.5677198</code></pre>
+<p>For another example, let’s consider the no-intercept regression model from last class and use a plot of the sum of squared errors for different <span class="math inline">\(\beta\)</span> values to obtain an estimator (that is, a value that minimizes the sum of squared differences). The function that we want to minimize is:</p>
+<p><span class="math display">\[\begin{align}
+f(\beta) &amp;= \sum_i (y_i - \hat{y}_i)^2 \\
+&amp;= \sum_i (y_i - \beta x_i)^2 
+\end{align}\]</span></p>
+<p>Let us generate some data below and write this function,</p>
+<p><img src="series_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>This confirms that the <span class="math inline">\(\hat{\beta}\)</span> found using this method (grid search) is equal to that found using <code>lm()</code>, or calculus!</p>
 </div>
-<div id="create-your-awesome-book-github-repo" class="section level2" number="2.2">
-<h2><span class="header-section-number">2.2</span> Create your “awesome-book” GitHub repo</h2>
+<div id="exercises-2" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Exercises 2</h2>
 <ol style="list-style-type: decimal">
-<li>Go to your GitHub account: github.com/username</li>
-<li>Click on Repositories, and the green button “New” to create a new repo</li>
-<li>Name this new repo “awesome-book”</li>
-<li>DO NOT initialize this repo with a README</li>
-<li>Click the green “create repository” button — this will take you to your new repo</li>
-<li>Click the tiny “clone or download” button near the top and COPY URL</li>
+<li><p><code>q1()</code>: a function that takes a numeric vector as input and returns the number of elements that are less than 10.</p></li>
+<li><p><code>q2()</code>: a function that takes a numeric vector as input and returns the range of the elements (difference between the max and the min).</p></li>
+<li><p><code>both_na()</code>: a function that takes two vectors of the same length and returns the number of positions that have an <code>NA</code> in both vectors. Hint: use the built in <code>is.na()</code> function. Feel free to use the code below to generate test vectors. Your function should return a value equal to the answer variable defined below.</p></li>
+<li><p><code>skew()</code>: a function that takes a numeric vector argument and returns the skew, using the following definition:</p></li>
 </ol>
-</div>
-<div id="turn-bookdown-tutorial-into-awesome-book" class="section level2" number="2.3">
-<h2><span class="header-section-number">2.3</span> Turn “bookdown-tutorial” into “awesome-book”</h2>
-<p><em>The following is from Jenny Bryan’s <a href="https://happygitwithr.com/existing-github-last.html">Happy Git With R</a></em></p>
-<ol style="list-style-type: decimal">
-<li>Go back to RStudio, to your “awesome-book” project</li>
-<li>In the Console, type <code>usethis::use_git()</code> and say Yes to the two prompts. This will restart R and give you a new Git tab in the upper right pane.</li>
-<li>Now, click on the Terminal tab next to the Console tab.</li>
-<li>Type <code>git remote add origin &lt;paste your copied awesome-book github url here&gt;</code></li>
-<li>Type <code>git push --set-upstream origin master</code></li>
+<p><span class="math display">\[\begin{equation}
+\text{skew(x)} = \frac{1/(n-2) \sum_{i=1}^n (x_i-\bar{x})^3 }{var(x)^{3/2}}
+\end{equation}\]</span></p>
+<p>You can generate test data as below:</p>
+<p>In which case your function should return -0.0146668.</p>
+<ol start="5" style="list-style-type: decimal">
+<li><p><code>q5()</code>: function takes numeric vector argument and changes each element to 1 if the element is <span class="math inline">\(&gt;1\)</span> and 0 otherwise.</p></li>
+<li><p>Use code (functions) as well as math to check to see if the following two expressions are equal to one another. When writing code, generate two vectors of equal length (referred to below as <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>) and use them as arguments in your function. To check using math, carry out the multiplication in <cod>exp1</code> and see if you can reduce it to <cod>exp2</code>.</p></li>
 </ol>
-</div>
-<div id="publish-awesome-book" class="section level2" number="2.4">
-<h2><span class="header-section-number">2.4</span> Publish “awesome-book”</h2>
-<p>Last steps!</p>
-<ol style="list-style-type: decimal">
-<li>Go back to github.com/username/“awesome-book” and refresh — our files should be there! But we want it to be a book published as <a href="https://username.github.io/awesome-book" class="uri">https://username.github.io/awesome-book</a>.</li>
-<li>Click Settings</li>
-<li>Scroll down to GitHub Settings</li>
-<li>Change the Source pulldown from “None” to “master branch /docs folder”</li>
-<li>It should say “Your site is ready to be published at <a href="https://username.github.io/awesome-book/" class="uri">https://username.github.io/awesome-book/</a>” — click the link to see!</li>
-</ol>
-<p>Now, you’re set — you just need to write your book.</p>
-</div>
-<div id="moving-forward" class="section level2" number="2.5">
-<h2><span class="header-section-number">2.5</span> Moving forward</h2>
-<p>As you write your .Rmd files, build the book and commit all files, including the docs/ folder, and your published book will be updated!</p>
+<p><span class="math display">\[\begin{align}
+\text{exp1} &amp;= \sum_{i=1}^n (x_i - \bar{x})(y_i - \bar{y}) \\
+\text{exp2} &amp;= \sum_{i=1}^n (x_i - \bar{x})y_i
+\end{align}\]</span></p>
 
 </div>
 </div>
@@ -243,6 +291,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
