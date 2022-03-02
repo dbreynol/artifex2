@@ -1,3 +1,4 @@
+eq:predvar
 welcome
 setup
 functions
@@ -8,3 +9,6 @@ exercises-1
 inference
 exercises-3
 matrix-representation
+exercises-4
+prediction
+exercises-5

@@ -234,14 +234,6 @@ In R, input the values of a matrix by column using either <code>matrix</code> or
 3. **Inverting a matrix**: $A^{-1}$, <code>solve(A)</code>
 4. **Transposing a matrix**: $A^ \top$, <code>t(A)</code>
 
-Let's do some practice.
-
-**Exercises 4A**
-
-1. What is $AB$. Compute by hand and verify with R.
-2. What is $A^{-1}$. Compute by hand and verify with R.
-3. What is $A^\top B$. Compute by hand and verify with R.
-
 Now let's shift a little to working with 'general' matrices and construct expressions for some matrix operations. In particular, let's work with the following matrices,
 
 \[X = \begin{bmatrix}
@@ -253,13 +245,6 @@ Y = \begin{bmatrix}
 y_{11} & y_{12}\\
 y_{21} & y_{22}
 \end{bmatrix} \]
-
-**Exercises 4B**
-
-1. What is $X^{-1}$
-2. What is $X ^ \top$
-2. What is $XY$ (i.e., $X$ times $Y$; use $\Sigma$ notation)
-3. What is $(XY)^{-1}$
 
 Back to linear regression. By representing our model in matrix notation, we can write our model as,
 
@@ -311,6 +296,25 @@ Furthermore, the matrix representation For the case of simple linear regression 
     \end{bmatrix}
 \]
 
+## Exercises 4
+
+Let's do some practice. For $A, B$ defined above:
+
+**Exercises 4A**2
+
+1. What is $AB$. Compute by hand and verify with R.
+2. What is $A^{-1}$. Compute by hand and verify with R.
+3. What is $A^\top B$. Compute by hand and verify with R.
+
+**Exercises 4B**
+
+For $X, Y$ defined above:
+
+1. What is $X^{-1}$
+2. What is $X ^ \top$
+2. What is $XY$ (i.e., $X$ times $Y$; use $\Sigma$ notation)
+3. What is $(XY)^{-1}$
+
 **Exercises 4C**
 
 The following questions pertain to the simple linear regression (SLR) case in which the design matrix, $X$, is:
@@ -333,23 +337,106 @@ The following questions pertain to the simple linear regression (SLR) case in wh
 Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
 \end{equation}
 
-3. For the data below, compute the least squares estimate of $\beta$ using the expression $\hat{\beta} = (X^\top X)^{-1} (X^\top Y)$. Verify using <code>lm</code>.
-
+3. For the data below, compute (in R) the least squares estimate of $\beta$ using the expression $\hat{\beta} = (X^\top X)^{-1} (X^\top Y)$. Verify using <code>lm</code>.
 
 ```{r echo=T}
 set.seed(1)
-n = 500
-X = matrix( c(rep(1,n), rnorm(n)), nrow = n ) # design matrix X
-beta = c(1,2)
-y = rnorm(n, mean = X %*% beta, sd = 1)
+n = 100
+X = matrix( c(rep(1,n), rnorm(n,0,1)), nrow = n ) # design matrix X
+beta = c(1,1)
+y = rnorm(n, mean = X %*% beta, sd = 3)
+```
+
+4. Finally, compute (in R) the variance matrix of $\boldsymbol{\beta}$ using $\hat{\sigma}^2 (X^\top X)^{-1}$. The $\hat{\sigma}^2$ part is:
+
+```{r echo = T}
+sigsq.hat = sum ( residuals ( lm(y~X-1) ) ^2 ) / (n-2)
+```
+
+Verify that the square root of the diagonal entries of the variance matrix ($\hat{\sigma}^2 (X^\top X)^{-1}$) equal the coefficient standard error estimates from <code>lm</code>, which you can find using the <code>summary</code> function with your fit model as the argument.
+
+Though not necessary, you may find the function <code>diag</code> to be useful in extracting the diagonal entries of a matrix.
+
+
+## Prediction
+
+Suppose we have fit a linear regression model that predicts how much sales a certain product will generate at various price points. Your boss approaches you with a new potential price that was not observed in the data used to fit the model. Let's call this value $x_p$. She asks you for a prediction of the sales amount if the price is $x_p$. Let's call this value $\hat{y}_p$. We can provide a point estimate as,
+
+\begin{equation}
+\hat{y}_p = \hat{\beta}_0 + \hat{\beta}_1 x_p.
+\end{equation}
+
+How much uncertainty is there in this estimate? To find out, we need to find the variance of the estimate. That is, we need,
+
+\begin{equation}
+Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ).
+(\#eq:predvar)
+\end{equation}
+
+Recall that the coefficients depend on $y$ and are, therefore, random variables. To find the variance of the sum of two random variables, recall that for random variables $X, Y$,
+
+\begin{equation} 
+Var( X + Y ) = Var(X) + Var(Y) + 2 Cov(X,Y).
+\end{equation}
+
+A slight modification of this result that will allow us to evaluate \@ref(eq:predvar) is:
+
+\begin{equation} 
+Var( X + cY ) = Var(X) + c^2 Var(Y) + 2 c Cov(X,Y),
+\end{equation}
+
+where $c$ is a constant. Plugging in $\hat{\beta}_0$ for $X$ and $\hat{\beta}_1$ for $Y$, we get:
+
+\begin{equation} 
+Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\beta}_1) + 2 x_p Cov(\hat{\beta}_0, \hat{\beta}_1),
+\end{equation}
+
+## Exercises 5
+
+The goal of this exercise is to generate the confidence bands below.
+
+
+```{r}
+
+mod.df = data.frame(y = y, X = X[,2])
+
+m0 = lm(y ~ X, data = ,mod.df)
+
+xr = seq(-9,9, by = 0.01)
+preds = predict(m0, newdata = data.frame(X = xr), interval = "confidence" )
+
+#plot(mod.df$X, mod.df$y)
+
+#lines(xr, preds[,3])
+#lines(xr, preds[,2])
 ```
 
 
+```{r}
 
 
+# new.dat = matrix( c ( rep(1, length(xr)) , xr ), nrow = length(xr), ncol = 2)
+# predict(m0, newdata = data.frame(new.dat), interval = 'confidence')
+# 
+# betahat = coefficients( lm(y ~ X - 1) )
+vc.betahat = vcov ( m0) 
+betahat = coefficients(m0 )
+# 
+pred.se = function(x) {
+  pred = betahat[1] + betahat[2] * x
+  v = vc.betahat[1,1] + x^2 * vc.betahat[2,2] + 2 * x * vc.betahat[1,2]
+  return(sqrt(v))
+}
 
+preds = matrix( c(rep(1, length(xr)), xr), nrow = length(xr) ) %*% betahat
 
+plot(mod.df$X, mod.df$y)
+h = preds + 2 * pred.se(xr)
+l = preds - 2 * pred.se(xr)
+lines(xr, h, col = "blue")
+lines(xr, l, col = "blue")
 
+```
 
 
 

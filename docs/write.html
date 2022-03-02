@@ -24,7 +24,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-02-24" />
+<meta name="date" content="2022-03-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -153,6 +153,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference</a></li>
 <li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3</a></li>
 <li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation</a></li>
+<li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4</a></li>
+<li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction</a></li>
+<li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -468,13 +471,6 @@ B = \begin{bmatrix}
 <li><strong>Inverting a matrix</strong>: <span class="math inline">\(A^{-1}\)</span>, <code>solve(A)</code></li>
 <li><strong>Transposing a matrix</strong>: <span class="math inline">\(A^ \top\)</span>, <code>t(A)</code></li>
 </ol>
-<p>Let’s do some practice.</p>
-<p><strong>Exercises 4A</strong></p>
-<ol style="list-style-type: decimal">
-<li>What is <span class="math inline">\(AB\)</span>. Compute by hand and verify with R.</li>
-<li>What is <span class="math inline">\(A^{-1}\)</span>. Compute by hand and verify with R.</li>
-<li>What is <span class="math inline">\(A^\top B\)</span>. Compute by hand and verify with R.</li>
-</ol>
 <p>Now let’s shift a little to working with ‘general’ matrices and construct expressions for some matrix operations. In particular, let’s work with the following matrices,</p>
 <p><span class="math display">\[X = \begin{bmatrix}
 x_{11} &amp; x_{12}\\
@@ -485,13 +481,6 @@ Y = \begin{bmatrix}
 y_{11} &amp; y_{12}\\
 y_{21} &amp; y_{22}
 \end{bmatrix} \]</span></p>
-<p><strong>Exercises 4B</strong></p>
-<ol style="list-style-type: decimal">
-<li>What is <span class="math inline">\(X^{-1}\)</span></li>
-<li>What is <span class="math inline">\(X ^ \top\)</span></li>
-<li>What is <span class="math inline">\(XY\)</span> (i.e., <span class="math inline">\(X\)</span> times <span class="math inline">\(Y\)</span>; use <span class="math inline">\(\Sigma\)</span> notation)</li>
-<li>What is <span class="math inline">\((XY)^{-1}\)</span></li>
-</ol>
 <p>Back to linear regression. By representing our model in matrix notation, we can write our model as,</p>
 <p><span class="math display">\[\begin{equation}
 Y = X \beta + \epsilon,
@@ -532,6 +521,24 @@ Cov(\hat{\beta_0}, \hat{\beta_1} ) &amp; Var(\hat{\beta_1})
     e_n  
     \end{bmatrix}
 \]</span></p>
+</div>
+<div id="exercises-4" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Exercises 4</h2>
+<p>Let’s do some practice. For <span class="math inline">\(A, B\)</span> defined above:</p>
+<p><strong>Exercises 4A</strong>2</p>
+<ol style="list-style-type: decimal">
+<li>What is <span class="math inline">\(AB\)</span>. Compute by hand and verify with R.</li>
+<li>What is <span class="math inline">\(A^{-1}\)</span>. Compute by hand and verify with R.</li>
+<li>What is <span class="math inline">\(A^\top B\)</span>. Compute by hand and verify with R.</li>
+</ol>
+<p><strong>Exercises 4B</strong></p>
+<p>For <span class="math inline">\(X, Y\)</span> defined above:</p>
+<ol style="list-style-type: decimal">
+<li>What is <span class="math inline">\(X^{-1}\)</span></li>
+<li>What is <span class="math inline">\(X ^ \top\)</span></li>
+<li>What is <span class="math inline">\(XY\)</span> (i.e., <span class="math inline">\(X\)</span> times <span class="math inline">\(Y\)</span>; use <span class="math inline">\(\Sigma\)</span> notation)</li>
+<li>What is <span class="math inline">\((XY)^{-1}\)</span></li>
+</ol>
 <p><strong>Exercises 4C</strong></p>
 <p>The following questions pertain to the simple linear regression (SLR) case in which the design matrix, <span class="math inline">\(X\)</span>, is:</p>
 <p><span class="math display">\[
@@ -549,13 +556,48 @@ Cov(\hat{\beta_0}, \hat{\beta_1} ) &amp; Var(\hat{\beta_1})
 Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
 \end{equation}\]</span></p>
 <ol start="3" style="list-style-type: decimal">
-<li>For the data below, compute the least squares estimate of <span class="math inline">\(\beta\)</span> using the expression <span class="math inline">\(\hat{\beta} = (X^\top X)^{-1} (X^\top Y)\)</span>. Verify using <code>lm</code>.</li>
+<li>For the data below, compute (in R) the least squares estimate of <span class="math inline">\(\beta\)</span> using the expression <span class="math inline">\(\hat{\beta} = (X^\top X)^{-1} (X^\top Y)\)</span>. Verify using <code>lm</code>.</li>
 </ol>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="write.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb10-2"><a href="write.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">500</span></span>
-<span id="cb10-3"><a href="write.html#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n), <span class="fu">rnorm</span>(n)), <span class="at">nrow =</span> n ) <span class="co"># design matrix X</span></span>
-<span id="cb10-4"><a href="write.html#cb10-4" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
-<span id="cb10-5"><a href="write.html#cb10-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> X <span class="sc">%*%</span> beta, <span class="at">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<span id="cb10-2"><a href="write.html#cb10-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb10-3"><a href="write.html#cb10-3" aria-hidden="true" tabindex="-1"></a>X <span class="ot">=</span> <span class="fu">matrix</span>( <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">1</span>,n), <span class="fu">rnorm</span>(n,<span class="dv">0</span>,<span class="dv">1</span>)), <span class="at">nrow =</span> n ) <span class="co"># design matrix X</span></span>
+<span id="cb10-4"><a href="write.html#cb10-4" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb10-5"><a href="write.html#cb10-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> X <span class="sc">%*%</span> beta, <span class="at">sd =</span> <span class="dv">3</span>)</span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Finally, compute (in R) the variance matrix of <span class="math inline">\(\boldsymbol{\beta}\)</span> using <span class="math inline">\(\hat{\sigma}^2 (X^\top X)^{-1}\)</span>. The <span class="math inline">\(\hat{\sigma}^2\)</span> part is:</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="write.html#cb11-1" aria-hidden="true" tabindex="-1"></a>sigsq.hat <span class="ot">=</span> <span class="fu">sum</span> ( <span class="fu">residuals</span> ( <span class="fu">lm</span>(y<span class="sc">~</span>X<span class="dv">-1</span>) ) <span class="sc">^</span><span class="dv">2</span> ) <span class="sc">/</span> (n<span class="dv">-2</span>)</span></code></pre></div>
+<p>Verify that the square root of the diagonal entries of the variance matrix (<span class="math inline">\(\hat{\sigma}^2 (X^\top X)^{-1}\)</span>) equal the coefficient standard error estimates from <code>lm</code>, which you can find using the <code>summary</code> function with your fit model as the argument.</p>
+<p>Though not necessary, you may find the function <code>diag</code> to be useful in extracting the diagonal entries of a matrix.</p>
+</div>
+<div id="prediction" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Prediction</h2>
+<p>Suppose we have fit a linear regression model that predicts how much sales a certain product will generate at various price points. Your boss approaches you with a new potential price that was not observed in the data used to fit the model. Let’s call this value <span class="math inline">\(x_p\)</span>. She asks you for a prediction of the sales amount if the price is <span class="math inline">\(x_p\)</span>. Let’s call this value <span class="math inline">\(\hat{y}_p\)</span>. We can provide a point estimate as,</p>
+<p><span class="math display">\[\begin{equation}
+\hat{y}_p = \hat{\beta}_0 + \hat{\beta}_1 x_p.
+\end{equation}\]</span></p>
+<p>How much uncertainty is there in this estimate? To find out, we need to find the variance of the estimate. That is, we need,</p>
+<p><span class="math display" id="eq:predvar">\[\begin{equation}
+Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ).
+\tag{3.1}
+\end{equation}\]</span></p>
+<p>Recall that the coefficients depend on <span class="math inline">\(y\)</span> and are, therefore, random variables. To find the variance of the sum of two random variables, recall that for random variables <span class="math inline">\(X, Y\)</span>,</p>
+<p><span class="math display">\[\begin{equation} 
+Var( X + Y ) = Var(X) + Var(Y) + 2 Cov(X,Y).
+\end{equation}\]</span></p>
+<p>A slight modification of this result that will allow us to evaluate <a href="write.html#eq:predvar">(3.1)</a> is:</p>
+<p><span class="math display">\[\begin{equation} 
+Var( X + cY ) = Var(X) + c^2 Var(Y) + 2 c Cov(X,Y),
+\end{equation}\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is a constant. Plugging in <span class="math inline">\(\hat{\beta}_0\)</span> for <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> for <span class="math inline">\(Y\)</span>, we get:</p>
+<p><span class="math display">\[\begin{equation} 
+Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\beta}_1) + 2 x_p Cov(\hat{\beta}_0, \hat{\beta}_1),
+\end{equation}\]</span></p>
+</div>
+<div id="exercises-5" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Exercises 5</h2>
+<p>The goal of this exercise is to generate the confidence bands below.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 
 </div>
 </div>
