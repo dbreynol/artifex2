@@ -1,4 +1,5 @@
 eq:predvar
+eq:confint
 welcome
 setup
 functions
