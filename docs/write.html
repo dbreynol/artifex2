@@ -24,7 +24,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-03-02" />
+<meta name="date" content="2022-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -602,14 +602,20 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 </div>
 <div id="exercises-5" class="section level2" number="3.8">
 <h2><span class="header-section-number">3.8</span> Exercises 5</h2>
-<p>The goal of this exercise is to generate the least squares line and confidence bands as shown in the plot below.</p>
+<p>The goal of this exercise is to generate the least squares line and confidence bands as shown in the plot below. The data used is the data generated in question 3 of exercises 4C. In other words, the end goal of the exercise is to replicate the plot below.</p>
 <p>To do that, we need to compute <a href="write.html#eq:confint">(3.2)</a> for a range of <span class="math inline">\(x\)</span> values. Here are some steps to achieve this:</p>
 <ol style="list-style-type: decimal">
-<li><p>Let’s first generate the red line in the plot below. This is the least squares line. To generate this line, first generate a sequence of x-values (using the <code>seq</code> function). The range of the sequence should correspond with the range of observed values of the predictor variable. Then, for each <span class="math inline">\(x\)</span> in the sequence, generate a predicted <span class="math inline">\(y\)</span> value (i.e., <span class="math inline">\(\hat{y} = \hat{\beta_0} + \hat{\beta_1}x\)</span>). You can add this curve to your scatterplot by first generating the scatterplot (<code>plot(X[,2], y)</code>) and then adding your line using the <code>lines</code> function.</p></li>
-<li><p>Next, create a function that computes <a href="write.html#eq:confint">(3.2)</a> for each of the <span class="math inline">\(x\)</span> values in the sequence generated above. Use this function to obtain the standard error of the estimate for each of the <span class="math inline">\(x\)</span> values in your <span class="math inline">\(x\)</span>-sequence.</p></li>
-<li><p>Once you have completed the steps above, you will have the required <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> values to add the blue curves in the plots below. You can again use the <code>lines</code> function to add these additional curves.</p></li>
+<li>Let’s first generate the red line in the plot below. This is the least squares line. To generate this line, first generate a sequence of x-values (using the <code>seq</code> function). The range of the sequence should correspond with the range of observed values of the predictor variable. For example,</li>
 </ol>
-<p><img src="series_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="write.html#cb12-1" aria-hidden="true" tabindex="-1"></a>xr <span class="ot">=</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">9</span>,<span class="dv">9</span>, <span class="at">by =</span> <span class="fl">0.01</span>)</span></code></pre></div>
+<p>Then, for each <span class="math inline">\(x\)</span> in the sequence, generate a predicted <span class="math inline">\(y\)</span> value (i.e., <span class="math inline">\(\hat{y} = \hat{\beta_0} + \hat{\beta_1}x\)</span>). You can add this curve to your scatterplot by first generating the scatterplot (<code>plot(X[,2], y)</code>) and then adding your line using the <code>lines</code> function. The first argument to lines will be the <span class="math inline">\(x-\)</span>values (<code>xr</code> if you used the code above) and the second will be a sequence of <span class="math inline">\(\hat{y}-\)</span>values (which must be the samem length as <code>xr</code>).</p>
+<p>A perhaps simpler method would be to use the <code>abline</code> function; however, using <code>lines</code> corresponds with the strategy that follows for the confidence bands.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Next, create a function that computes <a href="write.html#eq:predvar">(3.1)</a>, where <span class="math inline">\(x_p\)</span> is the function argument. Use this function for each of the <span class="math inline">\(x\)</span> values in the sequence generated above. Use this function to obtain the standard error of the estimate for each of the <span class="math inline">\(x\)</span> values in your <span class="math inline">\(x\)</span>-sequence.</p></li>
+<li><p>Once you have completed the steps above, you should have a prediction and standard error for each value in the range of your <span class="math inline">\(x-\)</span>sequence (<code>xr</code> if you used the code above). The top blue curve is the prediction + 2 stanardard errors and the bottom curve is the prediction - 2 standard errors. You can again use the <code>lines</code> function to add these additional curves.</p></li>
+<li><p>Where are the confidence bands widest? Why does this make intuitive sense?</p></li>
+</ol>
+<p><img src="series_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 
 </div>
 </div>
