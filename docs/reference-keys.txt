@@ -13,5 +13,8 @@ matrix-representation
 exercises-4
 prediction
 exercises-5
+diagnostics
+residuals-as-powerful-eda-tool
+exercises-6
 ts
-estimation-1
+example

@@ -466,5 +466,93 @@ lines(xr, l, col = "blue")
 
 ```
 
+## Diagnostics
+
+The flip-side of predictions are residuals. The predictions tells you the pattern that the model has captured, and the residuals tell you what the model has missed. The residuals are just the distances between the observed and predicted values that we computed above.
+
+
+### Residuals as powerful EDA tool
+
+Suppose we have a dataset of diamonds and we would like to assess the relationship between the cut of the diamond and it's price. 
+
+```{r}
+
+ggplot(diamonds, aes(x = cut, y = price)) +
+  geom_boxplot() + 
+  theme_minimal() + 
+  ggtitle("Diamond cut versus price")
+
+
+```
+
+Judging from this plot, there doesn't appear to be much of a relationship between cut and price. Maybe this is because the higher quality cuts tend to have smaller weights.
+
+```{r}
+
+ggplot(diamonds, aes(x = cut, y = carat)) +
+  geom_boxplot() + 
+  theme_minimal() + 
+  ggtitle("Diamond weight (carat) versus price")
+
+```
+
+There appears to be some relationship here between cut and carat, with higher quality cuts being comprised of lower weight diamonds. There is also a strong relationship between carat and price, as seen below:
+
+```{r}
+
+ggplot(diamonds, aes(x = log(carat), y = log(price))) + 
+  geom_point(alpha = 0.1) + theme_minimal() +
+  ggtitle("Weight versus price (log scale)")
+```
+
+We can explore the relationship between cut and price by exploring the residuals of the model that uses only carat as a predictor and seeing how these residuals vary across cuts.
+
+```{r}
+m1 = lm(log(price) ~ log(carat), data = diamonds)
+res = residuals(m1)
+
+plotdf = data.frame(res = res, cut = diamonds$cut)
+
+ggplot(plotdf, aes(x = cut, y = res)) + 
+  geom_boxplot() + 
+  theme_minimal() + 
+  ggtitle("Residuals versus cut")
+
+```
+### Residuals as model diagnostic
+
+Residuals are also a primary means of assessing the central linear regression assumption of constant variance (homoscedastic errors). We can check this assumption by plotting fitted values ($\hat{y}$) versus residuals ($y-\hat{y}$).
+
+
+```{r}
+m2 = lm(log(price) ~ log(carat) + cut, data = diamonds)
+
+plotdf = data.frame(res = residuals(m2), yhat = predict(m2) )
+
+ggplot(plotdf, aes(x = yhat, y = res)) + 
+  geom_point(alpha = 0.1) + 
+  theme_minimal() + 
+  ggtitle("Residuals versus fitted values")
+```
+
+
+
+
+## Exercises 6
+
+1. Explore the relationship between clarity and price in the diamonds dataset using residuals (from the linear model fit using log(price) as a response, log(carat) and cut as predictors). What are your conclusions?
+
+2. Install the gapminder package <code>install.packages("gapminder")</code> and call it into your workspace using <code>library("gapminder")</code>. This loads a dataset named gapminder. Also use <code>library</code> to call the tidyverse package into your workspace.
+
+3. Use the <code>filter</code> function (or other preferred method) to filter your dataset to the most recent year of data (2007) for each country.
+
+4. Using the filtered dataset, fit a linear regression model with **lifeExp** as the dependent variable and **gdpPercap** as predictor.
+
+5. Examine the residuals from the model fit in 4 by continent. What is your interpretation?
+
+6. Expand your model as necessary (add predictors) and examine a residual plot of fitted values versus residuals. What is your interpretation?
+
+
+
 
 

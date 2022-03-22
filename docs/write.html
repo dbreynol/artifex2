@@ -24,7 +24,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-03-21" />
+<meta name="date" content="2022-03-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -156,10 +156,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4</a></li>
 <li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction</a></li>
 <li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5</a></li>
+<li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#estimation-1"><i class="fa fa-check"></i><b>4.1</b> Estimation</a></li>
+<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -620,6 +625,35 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 <li><p>Where are the confidence bands widest? Why does this make intuitive sense?</p></li>
 </ol>
 <p><img src="series_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<div id="diagnostics" class="section level2" number="3.9">
+<h2><span class="header-section-number">3.9</span> Diagnostics</h2>
+<p>The flip-side of predictions are residuals. The predictions tells you the pattern that the model has captured, and the residuals tell you what the model has missed. The residuals are just the distances between the observed and predicted values that we computed above.</p>
+<div id="residuals-as-powerful-eda-tool" class="section level3" number="3.9.1">
+<h3><span class="header-section-number">3.9.1</span> Residuals as powerful EDA tool</h3>
+<p>Suppose we have a dataset of diamonds and we would like to assess the relationship between the cut of the diamond and it’s price.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p>Judging from this plot, there doesn’t appear to be much of a relationship between cut and price. Maybe this is because the higher quality cuts tend to have smaller weights.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>There appears to be some relationship here between cut and carat, with higher quality cuts being comprised of lower weight diamonds. There is also a strong relationship between carat and price, as seen below:</p>
+<p><img src="series_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p>We can explore the relationship between cut and price by exploring the residuals of the model that uses only carat as a predictor and seeing how these residuals vary across cuts.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+### Residuals as model diagnostic</p>
+<p>Residuals are also a primary means of assessing the central linear regression assumption of constant variance (homoscedastic errors). We can check this assumption by plotting fitted values (<span class="math inline">\(\hat{y}\)</span>) versus residuals (<span class="math inline">\(y-\hat{y}\)</span>).</p>
+<p><img src="series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+</div>
+<div id="exercises-6" class="section level2" number="3.10">
+<h2><span class="header-section-number">3.10</span> Exercises 6</h2>
+<ol style="list-style-type: decimal">
+<li><p>Explore the relationship between clarity and price in the diamonds dataset using residuals (from the linear model fit using log(price) as a response, log(carat) and cut as predictors). What are your conclusions?</p></li>
+<li><p>Install the gapminder package <code>install.packages(“gapminder”)</code> and call it into your workspace using <code>library(“gapminder”)</code>. This loads a dataset named gapminder. Also use <code>library</code> to call the tidyverse package into your workspace.</p></li>
+<li><p>Use the <code>filter</code> function (or other preferred method) to filter your dataset to the most recent year of data (2007) for each country.</p></li>
+<li><p>Using the filtered dataset, fit a linear regression model with <strong>lifeExp</strong> as the dependent variable and <strong>gdpPercap</strong> as predictor.</p></li>
+<li><p>Examine the residuals from the model fit in 4 by continent. What is your interpretation?</p></li>
+<li><p>Expand your model as necessary (add predictors) and examine a residual plot of fitted values versus residuals. What is your interpretation?</p></li>
+</ol>
 
 </div>
 </div>

@@ -21,6 +21,7 @@ library(lubridate)
 library(openintro)
 library(pander)
 library(broom)
+library(astsa)
 ```
 
 
