@@ -159,6 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics</a>
 <ul>
 <li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool</a></li>
+<li class="chapter" data-level="3.9.2" data-path="write.html"><a href="write.html#residuals-as-model-diagnostic"><i class="fa fa-check"></i><b>3.9.2</b> Residuals as model diagnostic</a></li>
 </ul></li>
 <li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6</a></li>
 </ul></li>
@@ -638,8 +639,10 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 <p>There appears to be some relationship here between cut and carat, with higher quality cuts being comprised of lower weight diamonds. There is also a strong relationship between carat and price, as seen below:</p>
 <p><img src="series_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
 <p>We can explore the relationship between cut and price by exploring the residuals of the model that uses only carat as a predictor and seeing how these residuals vary across cuts.</p>
-<p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" />
-### Residuals as model diagnostic</p>
+<p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="residuals-as-model-diagnostic" class="section level3" number="3.9.2">
+<h3><span class="header-section-number">3.9.2</span> Residuals as model diagnostic</h3>
 <p>Residuals are also a primary means of assessing the central linear regression assumption of constant variance (homoscedastic errors). We can check this assumption by plotting fitted values (<span class="math inline">\(\hat{y}\)</span>) versus residuals (<span class="math inline">\(y-\hat{y}\)</span>).</p>
 <p><img src="series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>

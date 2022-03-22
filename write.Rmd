@@ -519,6 +519,7 @@ ggplot(plotdf, aes(x = cut, y = res)) +
   ggtitle("Residuals versus cut")
 
 ```
+
 ### Residuals as model diagnostic
 
 Residuals are also a primary means of assessing the central linear regression assumption of constant variance (homoscedastic errors). We can check this assumption by plotting fitted values ($\hat{y}$) versus residuals ($y-\hat{y}$).

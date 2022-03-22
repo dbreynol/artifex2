@@ -15,6 +15,7 @@ prediction
 exercises-5
 diagnostics
 residuals-as-powerful-eda-tool
+residuals-as-model-diagnostic
 exercises-6
 ts
 example
