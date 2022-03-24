@@ -40,9 +40,9 @@ y_t = \delta + \phi y_{t-1} + \epsilon_t.
 
 In order to satisfy the assumptions of such a model, however, we need our time series to be (weakly) stationary. A series  is said to be (weakly) stationary if it satisfies the following properties:
 
-- The mean  is the same for all y_t.
-- The variance of  is the same for all y_t.
-- The covariance (and also correlation) between  and  is the same for all  at each lag  h = 1, 2, 3, etc.
+- The mean  is the same for all $y_t$.
+- The variance of  is the same for all $y_t$.
+- The covariance (and also correlation) between  and  is the same for all  at each lag  $h = 1, 2, 3$, etc.
 
 Does our time series satisfy this condition? Maybe if we do a transformation, we can satisfy the condition. Let's take the <code>diff</code>. That is, let,
 
@@ -62,20 +62,55 @@ This looks decently stationary. Let's fit a model of the form \@ref(eq:armod) to
 
 ```{r echo=TRUE}
 m0 = arima(diff(globtempl), order = c(1,0,0))
+#summary(m0)
+```
+
+Let's look at the predicted versus actual values from this model.
+
+```{r}
+fx = y - m0$residuals
+
+fx.orig = globtempl + fx
+
+g2 = window(globtempl, start = 1881)
+plot(fx.orig, col = "red", ylab = "temp deviations", main = "Predicted (red) versus actual (blue) values")
+lines(g2, col = "blue")
+```
+
+This certainly looks like an improvement over linear regression!
+
+## Autocorrelation
+
+A central concept in time series analysis is autocorrelation. This is the correlation between $y_t$ and its lagged value. For a lag of $h$, this is the correlation between $y_t$ and $y_{t-h}$. For the differenced series above, this can be found using the <code>acf</code> function.
+
+```{r}
+acf(y)
 ```
 
 
-```{r eval = F}
-#lag1.plot(x,1) # Plots x versus lag 1 of x.
-x = as.numeric(globtempl)
-acf(x, xlim=c(1,19)) # Plots the ACF of x for lags 1 to 19
-xlag1=lag(x,1) # Creates a lag 1 of x variable. See note 2
-y=cbind(x,xlag1) # See note 3 below
-ar1fit=lm(y[,1]~y[,2])#Does regression, stores results object named ar1fit
-summary(ar1fit) # This lists the regression results
-plot(ar1fit$fit,ar1fit$residuals) #plot of residuals versus fits
-acf(ar1fit$residuals, xlim=c(1,18)) # ACF of the residuals for lags 1 to 18 
+## Exercises 7
+
+Write your own program to plot the autocorrelation function of a given series of values for a specified number of lags. The code below computes the lag 1 autocorrelation for the time series analysed above, $y$:
+
+```{r echo=TRUE }
+h = 1 # how many lags
+cor.df = data.frame(y = as.numeric(y), y1 = c(window(y, start = start(y)[1] + h), rep(0, h)) ) # cor(y, y-h)
+acxf_lagh = with(cor.df[- ( (length(y) - h + 1):length(y)) ,], cor(y, y1)) # cor(y, y-h)
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,3 +20,5 @@ residuals-as-model-diagnostic
 exercises-6
 ts
 example
+autocorrelation
+exercises-7

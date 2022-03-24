@@ -166,6 +166,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example</a></li>
+<li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation</a></li>
+<li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -204,9 +206,9 @@ y_t = \delta + \phi y_{t-1} + \epsilon_t.
 \end{equation}\]</span></p>
 <p>In order to satisfy the assumptions of such a model, however, we need our time series to be (weakly) stationary. A series is said to be (weakly) stationary if it satisfies the following properties:</p>
 <ul>
-<li>The mean is the same for all y_t.</li>
-<li>The variance of is the same for all y_t.</li>
-<li>The covariance (and also correlation) between and is the same for all at each lag h = 1, 2, 3, etc.</li>
+<li>The mean is the same for all <span class="math inline">\(y_t\)</span>.</li>
+<li>The variance of is the same for all <span class="math inline">\(y_t\)</span>.</li>
+<li>The covariance (and also correlation) between and is the same for all at each lag <span class="math inline">\(h = 1, 2, 3\)</span>, etc.</li>
 </ul>
 <p>Does our time series satisfy this condition? Maybe if we do a transformation, we can satisfy the condition. Let’s take the <code>diff</code>. That is, let,</p>
 <p><span class="math display">\[\begin{equation}
@@ -215,28 +217,23 @@ x_t = y_t -  y_{t-1}.
 <p>Let’s examine a plot of these differences.</p>
 <p><img src="series_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>This looks decently stationary. Let’s fit a model of the form <a href="ts.html#eq:armod">(4.1)</a> to the differences data. This can be achieved with the <code>arima</code> function.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ts.html#cb13-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">arima</span>(<span class="fu">diff</span>(globtempl), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="ts.html#cb13-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">arima</span>(<span class="fu">diff</span>(globtempl), <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb13-2"><a href="ts.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(m0)</span></span></code></pre></div>
+<p>Let’s look at the predicted versus actual values from this model.</p>
 <p><img src="series_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<pre><code>## 
-## Call:
-## lm(formula = y[, 1] ~ y[, 2])
-## 
-## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -0.38219 -0.08598  0.01516  0.09937  0.36149 
-## 
-## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.01069    0.01228   0.871    0.386    
-## y[, 2]       0.95403    0.03014  31.653   &lt;2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
-## 
-## Residual standard error: 0.1427 on 133 degrees of freedom
-##   (1 observation deleted due to missingness)
-## Multiple R-squared:  0.8828, Adjusted R-squared:  0.8819 
-## F-statistic:  1002 on 1 and 133 DF,  p-value: &lt; 2.2e-16</code></pre>
-<p><img src="series_files/figure-html/unnamed-chunk-33-2.png" width="672" /><img src="series_files/figure-html/unnamed-chunk-33-3.png" width="672" /></p>
+<p>This certainly looks like an improvement over linear regression!</p>
+</div>
+<div id="autocorrelation" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Autocorrelation</h2>
+<p>A central concept in time series analysis is autocorrelation. This is the correlation between <span class="math inline">\(y_t\)</span> and its lagged value. For a lag of <span class="math inline">\(h\)</span>, this is the correlation between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-h}\)</span>. For the differenced series above, this can be found using the <code>acf</code> function.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+</div>
+<div id="exercises-7" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Exercises 7</h2>
+<p>Write your own program to plot the autocorrelation function of a given series of values for a specified number of lags. The code below computes the lag 1 autocorrelation for the time series analysed above, <span class="math inline">\(y\)</span>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ts.html#cb14-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="dv">1</span> <span class="co"># how many lags</span></span>
+<span id="cb14-2"><a href="ts.html#cb14-2" aria-hidden="true" tabindex="-1"></a>cor.df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">y1 =</span> <span class="fu">c</span>(<span class="fu">window</span>(y, <span class="at">start =</span> <span class="fu">start</span>(y)[<span class="dv">1</span>] <span class="sc">+</span> h), <span class="fu">rep</span>(<span class="dv">0</span>, h)) ) <span class="co"># cor(y, y-h)</span></span>
+<span id="cb14-3"><a href="ts.html#cb14-3" aria-hidden="true" tabindex="-1"></a>acxf_lagh <span class="ot">=</span> <span class="fu">with</span>(cor.df[<span class="sc">-</span> ( (<span class="fu">length</span>(y) <span class="sc">-</span> h <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(y)) ,], <span class="fu">cor</span>(y, y1)) <span class="co"># cor(y, y-h)</span></span></code></pre></div>
 
 </div>
 </div>
