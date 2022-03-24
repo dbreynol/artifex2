@@ -84,7 +84,7 @@ This certainly looks like an improvement over linear regression!
 A central concept in time series analysis is autocorrelation. This is the correlation between $y_t$ and its lagged value. For a lag of $h$, this is the correlation between $y_t$ and $y_{t-h}$. For the differenced series above, this can be found using the <code>acf</code> function.
 
 ```{r}
-acf(y)
+#acf(y)
 ```
 
 
