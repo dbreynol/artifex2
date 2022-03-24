@@ -1,5 +1,6 @@
 eq:predvar
 eq:confint
+eq:armod
 welcome
 setup
 functions

@@ -2,40 +2,70 @@
 
 ## Example
 
+Suppose we have data on global mean land temperature deviations (from 1951-1980 average). Let's see what this data looks like. 
+
 ```{r}
 plot(globtempl, main = "Global mean land (only) temperature deviations")
 ```
 
-Perhaps we can just use simple linear regression.
+How could we model this response. Given we only have one tool in our tool box, let's use it and fit a simple linear regression model using time as the predictor.
 
 
 ```{r}
-data = data.frame(y = as.numeric(globtempl), x = as.numeric(time(globtempl)) )
-
+data = data.frame(y = as.numeric(globtempl), x = as.numeric(time(globtempl)))
 
 m0 = lm(y ~ x, data = data)
 betas = coefficients(m0)
 
 #summary(m0)
 
-
-with(data, plot(x, y))
+with(data, plot(x, y, main = "Regression of temperature deviations versus time"))
 abline(betas[1], betas[2])
-
 ```
+
+We can look at the residuals from this model as a quick diagnostic.
 
 ```{r}
 plot(y = residuals(m0), x = as.numeric(time(globtempl)),
      main = "Residuals of Simple Linear Regression")
+abline(a=0, b=0)
 ```
+
+Perhaps we should use a time series model instead in which current values of the series are modelled as a function of past values. That is,
+
+\begin{equation}
+y_t = \delta + \phi y_{t-1} + \epsilon_t.
+(\#eq:armod)
+\end{equation}
+
+In order to satisfy the assumptions of such a model, however, we need our time series to be (weakly) stationary. A series  is said to be (weakly) stationary if it satisfies the following properties:
+
+- The mean  is the same for all y_t.
+- The variance of  is the same for all y_t.
+- The covariance (and also correlation) between  and  is the same for all  at each lag  h = 1, 2, 3, etc.
+
+Does our time series satisfy this condition? Maybe if we do a transformation, we can satisfy the condition. Let's take the <code>diff</code>. That is, let,
+
+\begin{equation}
+x_t = y_t -  y_{t-1}.
+\end{equation}
+
+Let's examine a plot of these differences.
 
 
 ```{r}
-acf(residuals(m0))
+y = diff(globtempl)
+plot(y, main = "Differences in temperature deviations")
+```
+
+This looks decently stationary. Let's fit a model of the form \@ref(eq:armod) to the differences data. This can be achieved with the <code>arima</code> function.
+
+```{r echo=TRUE}
+m0 = arima(diff(globtempl), order = c(1,0,0))
 ```
 
 
-```{r}
+```{r eval = F}
 #lag1.plot(x,1) # Plots x versus lag 1 of x.
 x = as.numeric(globtempl)
 acf(x, xlim=c(1,19)) # Plots the ACF of x for lags 1 to 19

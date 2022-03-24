@@ -499,7 +499,6 @@ ggplot(diamonds, aes(x = cut, y = carat)) +
 There appears to be some relationship here between cut and carat, with higher quality cuts being comprised of lower weight diamonds. There is also a strong relationship between carat and price, as seen below:
 
 ```{r}
-
 ggplot(diamonds, aes(x = log(carat), y = log(price))) + 
   geom_point(alpha = 0.1) + theme_minimal() +
   ggtitle("Weight versus price (log scale)")
