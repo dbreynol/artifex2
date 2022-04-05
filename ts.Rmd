@@ -90,9 +90,9 @@ A central concept in time series analysis is autocorrelation. This is the correl
 
 ## Exercises 7
 
-Write your own program to plot the autocorrelation function of a given time series, for a specified number of lags.
+Write your own program to compute (part 1) and plot (**optional part 2**) the autocorrelation function of a given time series, for a specified number of lags.
 
-The autocorrelation between a time series $y$ at lag $k$ is:
+The autocorrelation for a time series $y$ at lag $k$ is:
 
 \begin{equation}
 r_k = \frac{ \sum_{t = k + 1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y}) }{\sum_{t=1}^T (y_t - \bar{y})^2 }
@@ -117,4 +117,4 @@ sum ( (late1 - ybar ) * (early1 - ybar ) ) /  ( sum ( (y - ybar)^2 ) )
 # check using builtin function: (acf(y, type = "correlation"))
 ```
 
-For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, use that function in a new function to plot the first 5 $r_k$ values using barplots. Compare with <code>acf</code>.
+For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, optionally, use that function in a new function to plot the first 5 $r_k$ values using barplots. Compare with <code>acf</code>.
