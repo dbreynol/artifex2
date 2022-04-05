@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Time Series | Artifex Spring 2022</title>
   <meta name="description" content="Class materials for Paul 520." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Time Series | Artifex Spring 2022" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Class materials for Paul 520." />
   <meta name="github-repo" content="openscapes/series" />
@@ -24,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-03-24" />
+<meta name="date" content="2022-04-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,7 @@
   
 <link rel="prev" href="write.html"/>
 
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -140,34 +139,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">UNH Artifex</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
-<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome<span></span></a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions</a></li>
-<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2</a></li>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
+<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation</a></li>
-<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1</a></li>
-<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference</a></li>
-<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3</a></li>
-<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation</a></li>
-<li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4</a></li>
-<li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction</a></li>
-<li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5</a></li>
-<li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics</a>
+<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5<span></span></a></li>
+<li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics<span></span></a>
 <ul>
-<li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool</a></li>
-<li class="chapter" data-level="3.9.2" data-path="write.html"><a href="write.html#residuals-as-model-diagnostic"><i class="fa fa-check"></i><b>3.9.2</b> Residuals as model diagnostic</a></li>
+<li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool<span></span></a></li>
+<li class="chapter" data-level="3.9.2" data-path="write.html"><a href="write.html#residuals-as-model-diagnostic"><i class="fa fa-check"></i><b>3.9.2</b> Residuals as model diagnostic<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6</a></li>
+<li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series</a>
+<li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series<span></span></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example</a></li>
-<li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation</a></li>
-<li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7</a></li>
+<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -189,10 +188,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ts" class="section level1" number="4">
-<h1><span class="header-section-number">Chapter 4</span> Time Series</h1>
-<div id="example" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Example</h2>
+<div id="ts" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Time Series<a href="ts.html#ts" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="example" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Example<a href="ts.html#example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we have data on global mean land temperature deviations (from 1951-1980 average). Let’s see what this data looks like.</p>
 <p><img src="series_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
 <p>How could we model this response. Given we only have one tool in our tool box, let’s use it and fit a simple linear regression model using time as the predictor.</p>
@@ -223,16 +222,32 @@ x_t = y_t -  y_{t-1}.
 <p><img src="series_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 <p>This certainly looks like an improvement over linear regression!</p>
 </div>
-<div id="autocorrelation" class="section level2" number="4.2">
-<h2><span class="header-section-number">4.2</span> Autocorrelation</h2>
+<div id="autocorrelation" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Autocorrelation<a href="ts.html#autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>A central concept in time series analysis is autocorrelation. This is the correlation between <span class="math inline">\(y_t\)</span> and its lagged value. For a lag of <span class="math inline">\(h\)</span>, this is the correlation between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t-h}\)</span>. For the differenced series above, this can be found using the <code>acf</code> function.</p>
 </div>
-<div id="exercises-7" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Exercises 7</h2>
-<p>Write your own program to plot the autocorrelation function of a given series of values for a specified number of lags. The code below computes the lag 1 autocorrelation for the time series analysed above, <span class="math inline">\(y\)</span>:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ts.html#cb14-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="dv">1</span> <span class="co"># how many lags</span></span>
-<span id="cb14-2"><a href="ts.html#cb14-2" aria-hidden="true" tabindex="-1"></a>cor.df <span class="ot">=</span> <span class="fu">data.frame</span>(<span class="at">y =</span> <span class="fu">as.numeric</span>(y), <span class="at">y1 =</span> <span class="fu">c</span>(<span class="fu">window</span>(y, <span class="at">start =</span> <span class="fu">start</span>(y)[<span class="dv">1</span>] <span class="sc">+</span> h), <span class="fu">rep</span>(<span class="dv">0</span>, h)) ) <span class="co"># cor(y, y-h)</span></span>
-<span id="cb14-3"><a href="ts.html#cb14-3" aria-hidden="true" tabindex="-1"></a>acxf_lagh <span class="ot">=</span> <span class="fu">with</span>(cor.df[<span class="sc">-</span> ( (<span class="fu">length</span>(y) <span class="sc">-</span> h <span class="sc">+</span> <span class="dv">1</span>)<span class="sc">:</span><span class="fu">length</span>(y)) ,], <span class="fu">cor</span>(y, y1)) <span class="co"># cor(y, y-h)</span></span></code></pre></div>
+<div id="exercises-7" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Exercises 7<a href="ts.html#exercises-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Write your own program to plot the autocorrelation function of a given time series, for a specified number of lags.</p>
+<p>The autocorrelation between a time series <span class="math inline">\(y\)</span> at lag <span class="math inline">\(k\)</span> is:</p>
+<p><span class="math display">\[\begin{equation}
+r_k = \frac{ \sum_{t = k + 1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y}) }{\sum_{t=1}^T (y_t - \bar{y})^2 }
+\end{equation}\]</span></p>
+<p>As an example, the code below generates the lag 1 autocorrelation for a time series <span class="math inline">\(y\)</span>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="ts.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># simulate time series data from an AR(1) model</span></span>
+<span id="cb14-2"><a href="ts.html#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">=</span> <span class="fu">arima.sim</span>(<span class="at">n=</span><span class="dv">10</span>, <span class="fu">list</span>(<span class="at">ar =</span> <span class="fu">c</span>(.<span class="dv">9</span>), <span class="at">sd =</span> <span class="fl">0.5</span>))</span>
+<span id="cb14-3"><a href="ts.html#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="ts.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># split into two vectors; one that starts one lag value late (late1)</span></span>
+<span id="cb14-5"><a href="ts.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and one that ends one lag value early (early1)</span></span>
+<span id="cb14-6"><a href="ts.html#cb14-6" aria-hidden="true" tabindex="-1"></a>late1 <span class="ot">=</span> <span class="fu">as.numeric</span>( <span class="fu">window</span>(y, <span class="at">start =</span> <span class="dv">2</span>))</span>
+<span id="cb14-7"><a href="ts.html#cb14-7" aria-hidden="true" tabindex="-1"></a>early1 <span class="ot">=</span> <span class="fu">as.numeric</span> ( <span class="fu">window</span>(y, <span class="at">end =</span> <span class="dv">9</span>) )</span>
+<span id="cb14-8"><a href="ts.html#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="ts.html#cb14-9" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">=</span> <span class="fu">mean</span>(<span class="fu">as.numeric</span>(y))</span>
+<span id="cb14-10"><a href="ts.html#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="ts.html#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> ( (late1 <span class="sc">-</span> ybar ) <span class="sc">*</span> (early1 <span class="sc">-</span> ybar ) ) <span class="sc">/</span>  ( <span class="fu">sum</span> ( (y <span class="sc">-</span> ybar)<span class="sc">^</span><span class="dv">2</span> ) )</span></code></pre></div>
+<pre><code>## [1] 0.5773614</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ts.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check using builtin function: (acf(y, type = &quot;correlation&quot;))</span></span></code></pre></div>
+<p>For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, use that function in a new function to plot the first 5 <span class="math inline">\(r_k\)</span> values using barplots. Compare with <code>acf</code>.</p>
 
 </div>
 </div>

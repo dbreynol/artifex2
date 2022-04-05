@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Linear Regression | Artifex Spring 2022</title>
   <meta name="description" content="Class materials for Paul 520." />
-  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Linear Regression | Artifex Spring 2022" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Class materials for Paul 520." />
   <meta name="github-repo" content="openscapes/series" />
@@ -24,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-03-24" />
+<meta name="date" content="2022-04-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,8 +32,7 @@
   
 <link rel="prev" href="setup.html"/>
 <link rel="next" href="ts.html"/>
-<script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,8 +49,9 @@
 
 
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -140,34 +139,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="./">UNH Artifex</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome</a></li>
-<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome<span></span></a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> R Fundamentals<span></span></a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions</a></li>
-<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2</a></li>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#functions"><i class="fa fa-check"></i><b>2.1</b> Functions<span></span></a></li>
+<li class="chapter" data-level="2.2" data-path="setup.html"><a href="setup.html#exercises-2"><i class="fa fa-check"></i><b>2.2</b> Exercises 2<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression</a>
+<li class="chapter" data-level="3" data-path="write.html"><a href="write.html"><i class="fa fa-check"></i><b>3</b> Linear Regression<span></span></a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation</a></li>
-<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1</a></li>
-<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference</a></li>
-<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3</a></li>
-<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation</a></li>
-<li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4</a></li>
-<li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction</a></li>
-<li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5</a></li>
-<li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics</a>
+<li class="chapter" data-level="3.1" data-path="write.html"><a href="write.html#estimation"><i class="fa fa-check"></i><b>3.1</b> Estimation<span></span></a></li>
+<li class="chapter" data-level="3.2" data-path="write.html"><a href="write.html#exercises-1"><i class="fa fa-check"></i><b>3.2</b> Exercises 1<span></span></a></li>
+<li class="chapter" data-level="3.3" data-path="write.html"><a href="write.html#inference"><i class="fa fa-check"></i><b>3.3</b> Inference<span></span></a></li>
+<li class="chapter" data-level="3.4" data-path="write.html"><a href="write.html#exercises-3"><i class="fa fa-check"></i><b>3.4</b> Exercises 3<span></span></a></li>
+<li class="chapter" data-level="3.5" data-path="write.html"><a href="write.html#matrix-representation"><i class="fa fa-check"></i><b>3.5</b> Matrix representation<span></span></a></li>
+<li class="chapter" data-level="3.6" data-path="write.html"><a href="write.html#exercises-4"><i class="fa fa-check"></i><b>3.6</b> Exercises 4<span></span></a></li>
+<li class="chapter" data-level="3.7" data-path="write.html"><a href="write.html#prediction"><i class="fa fa-check"></i><b>3.7</b> Prediction<span></span></a></li>
+<li class="chapter" data-level="3.8" data-path="write.html"><a href="write.html#exercises-5"><i class="fa fa-check"></i><b>3.8</b> Exercises 5<span></span></a></li>
+<li class="chapter" data-level="3.9" data-path="write.html"><a href="write.html#diagnostics"><i class="fa fa-check"></i><b>3.9</b> Diagnostics<span></span></a>
 <ul>
-<li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool</a></li>
-<li class="chapter" data-level="3.9.2" data-path="write.html"><a href="write.html#residuals-as-model-diagnostic"><i class="fa fa-check"></i><b>3.9.2</b> Residuals as model diagnostic</a></li>
+<li class="chapter" data-level="3.9.1" data-path="write.html"><a href="write.html#residuals-as-powerful-eda-tool"><i class="fa fa-check"></i><b>3.9.1</b> Residuals as powerful EDA tool<span></span></a></li>
+<li class="chapter" data-level="3.9.2" data-path="write.html"><a href="write.html#residuals-as-model-diagnostic"><i class="fa fa-check"></i><b>3.9.2</b> Residuals as model diagnostic<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6</a></li>
+<li class="chapter" data-level="3.10" data-path="write.html"><a href="write.html#exercises-6"><i class="fa fa-check"></i><b>3.10</b> Exercises 6<span></span></a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series</a>
+<li class="chapter" data-level="4" data-path="ts.html"><a href="ts.html"><i class="fa fa-check"></i><b>4</b> Time Series<span></span></a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example</a></li>
-<li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation</a></li>
-<li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7</a></li>
+<li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example<span></span></a></li>
+<li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation<span></span></a></li>
+<li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -189,10 +188,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="write" class="section level1" number="3">
-<h1><span class="header-section-number">Chapter 3</span> Linear Regression</h1>
-<div id="estimation" class="section level2" number="3.1">
-<h2><span class="header-section-number">3.1</span> Estimation</h2>
+<div id="write" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Linear Regression<a href="write.html#write" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="estimation" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Estimation<a href="write.html#estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we want to model a response variable <span class="math inline">\(Y\)</span> in terms of some predictor variables, <span class="math inline">\((X_1, X_2, X_3)\)</span>. One very general form of the model would be:</p>
 <p><span class="math display">\[\begin{equation}
 Y = f(X_1, X_2, X_3) + \epsilon
@@ -347,16 +346,16 @@ f(\beta) &amp;= \sum_i (y_i - \hat{y}_i)^2 \\
 \end{align}\]</span></p>
 <p>What is this value?</p>
 </div>
-<div id="exercises-1" class="section level2" number="3.2">
-<h2><span class="header-section-number">3.2</span> Exercises 1</h2>
+<div id="exercises-1" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Exercises 1<a href="write.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li>Among counties with greater than 95% high school graduates, which county has the highest unemployment rate?</li>
 <li>Using the command <code>data()</code>, find a dataset that interests you, generate a hypothesis regarding a linear association between two variables, and assess the hypothesis by first visualizing (using a scatterplot) and then fitting a linear regression model.</li>
 <li>(Optional) Repeat the optimization analysis above for the model <span class="math inline">\(y_i = \beta_0 + \beta_1x_i\)</span>, taking partial derivatives and solving.</li>
 </ol>
 </div>
-<div id="inference" class="section level2" number="3.3">
-<h2><span class="header-section-number">3.3</span> Inference</h2>
+<div id="inference" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Inference<a href="write.html#inference" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Last time, we discussed a few ways to estimate the slope coefficient in a linear regression model. This yields a point estimate. The other key ingredient for inference is to determine how much uncertainty there is in our estimate. For the case of <span class="math inline">\(\hat{\beta_1}\)</span>, we want to know how much this estimate varies from sample to sample for the specified sample size. That is, we want to know the variance of the estimate:</p>
 <p><span class="math display">\[\begin{align}
 Var(\hat{\beta_1}).
@@ -451,8 +450,8 @@ P(t_{\alpha/2} &lt; T &lt; t_{1-\alpha/2}) = (1-\alpha)
 <p>Now, back to regression. Let’s use the same framework to estimate the variance of the slope coefficient.</p>
 <pre><code>## [1] 0.03310038</code></pre>
 </div>
-<div id="exercises-3" class="section level2" number="3.4">
-<h2><span class="header-section-number">3.4</span> Exercises 3</h2>
+<div id="exercises-3" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Exercises 3<a href="write.html#exercises-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li><p>Run the code below to simulate data from a <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a>. Generate a histogram and describe it (where is the mode? what is the skew?)</p></li>
 <li><p>What is the relationship between the sample mean and median? What do you think is the relationship in the variability in these two sample statistics (i.e., if we were to draw another sample from this distribution, which one would change more on average)?</p></li>
@@ -463,8 +462,8 @@ P(t_{\alpha/2} &lt; T &lt; t_{1-\alpha/2}) = (1-\alpha)
 <li><p>(Challenge question) The central limit theorem (CLT) establishes that the distribution of the sample mean is approximately normal with mean equal to the population mean and variance equal to the population variance divided by the sample size (<span class="math inline">\(\sigma^2/n\)</span>). How does the distribution of sample means generated in 3 compare with the distribution implied by the CLT? You will need to find the population mean and variance of the <a href="https://en.wikipedia.org/wiki/Gamma_distribution">gamma distribution</a> that we sampled from.</p></li>
 </ol>
 </div>
-<div id="matrix-representation" class="section level2" number="3.5">
-<h2><span class="header-section-number">3.5</span> Matrix representation</h2>
+<div id="matrix-representation" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Matrix representation<a href="write.html#matrix-representation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s define the following matrices,</p>
 <p><span class="math display">\[A = \begin{bmatrix}
 7 &amp; 9\\
@@ -534,8 +533,8 @@ Cov(\hat{\beta_0}, \hat{\beta_1} ) &amp; Var(\hat{\beta_1})
     \end{bmatrix}
 \]</span></p>
 </div>
-<div id="exercises-4" class="section level2" number="3.6">
-<h2><span class="header-section-number">3.6</span> Exercises 4</h2>
+<div id="exercises-4" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Exercises 4<a href="write.html#exercises-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s do some practice. For <span class="math inline">\(A, B\)</span> defined above:</p>
 <p><strong>Exercises 4A</strong>2</p>
 <ol style="list-style-type: decimal">
@@ -582,8 +581,8 @@ Var(\hat{\beta_1}) = \frac{\hat{\sigma}^2}{(n-1) \hat{var}(x)}
 <p>Verify that the square root of the diagonal entries of the variance matrix (<span class="math inline">\(\hat{\sigma}^2 (X^\top X)^{-1}\)</span>) equal the coefficient standard error estimates from <code>lm</code>, which you can find using the <code>summary</code> function with your fit model as the argument.</p>
 <p>Though not necessary, you may find the function <code>diag</code> to be useful in extracting the diagonal entries of a matrix.</p>
 </div>
-<div id="prediction" class="section level2" number="3.7">
-<h2><span class="header-section-number">3.7</span> Prediction</h2>
+<div id="prediction" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Prediction<a href="write.html#prediction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Suppose we have fit a linear regression model that predicts how much sales a certain product will generate at various price points. Your boss approaches you with a new potential price that was not observed in the data used to fit the model. Let’s call this value <span class="math inline">\(x_p\)</span>. She asks you for a prediction of the sales amount if the price is <span class="math inline">\(x_p\)</span>. Let’s call this value <span class="math inline">\(\hat{y}_p\)</span>. We can provide a point estimate as,</p>
 <p><span class="math display">\[\begin{equation}
 \hat{y}_p = \hat{\beta}_0 + \hat{\beta}_1 x_p.
@@ -612,8 +611,8 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 \end{equation}\]</span></p>
 <p>There is nothing special about <span class="math inline">\(x_p\)</span>. We can compute this confidence interval for any value of the predictor variable. Does the width of this band depend on <span class="math inline">\(x\)</span> at all or is the margin of error constant? Let’s explore that in the next exercise.</p>
 </div>
-<div id="exercises-5" class="section level2" number="3.8">
-<h2><span class="header-section-number">3.8</span> Exercises 5</h2>
+<div id="exercises-5" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Exercises 5<a href="write.html#exercises-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The goal of this exercise is to generate the least squares line and confidence bands as shown in the plot below. The data used is the data generated in question 3 of exercises 4C. In other words, the end goal of the exercise is to replicate the plot below.</p>
 <p>To do that, we need to compute <a href="write.html#eq:confint">(3.2)</a> for a range of <span class="math inline">\(x\)</span> values. Here are some steps to achieve this:</p>
 <ol style="list-style-type: decimal">
@@ -629,11 +628,11 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 </ol>
 <p><img src="series_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 </div>
-<div id="diagnostics" class="section level2" number="3.9">
-<h2><span class="header-section-number">3.9</span> Diagnostics</h2>
+<div id="diagnostics" class="section level2 hasAnchor" number="3.9">
+<h2><span class="header-section-number">3.9</span> Diagnostics<a href="write.html#diagnostics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The flip-side of predictions are residuals. The predictions tells you the pattern that the model has captured, and the residuals tell you what the model has missed. The residuals are just the distances between the observed and predicted values that we computed above.</p>
-<div id="residuals-as-powerful-eda-tool" class="section level3" number="3.9.1">
-<h3><span class="header-section-number">3.9.1</span> Residuals as powerful EDA tool</h3>
+<div id="residuals-as-powerful-eda-tool" class="section level3 hasAnchor" number="3.9.1">
+<h3><span class="header-section-number">3.9.1</span> Residuals as powerful EDA tool<a href="write.html#residuals-as-powerful-eda-tool" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Suppose we have a dataset of diamonds and we would like to assess the relationship between the cut of the diamond and it’s price.</p>
 <p><img src="series_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>Judging from this plot, there doesn’t appear to be much of a relationship between cut and price. Maybe this is because the higher quality cuts tend to have smaller weights.</p>
@@ -643,14 +642,14 @@ Var( \hat{\beta}_0 + \hat{\beta}_1 x_p ) = Var(\hat{\beta}_0) + x_p^2 Var(\hat{\
 <p>We can explore the relationship between cut and price by exploring the residuals of the model that uses only carat as a predictor and seeing how these residuals vary across cuts.</p>
 <p><img src="series_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 </div>
-<div id="residuals-as-model-diagnostic" class="section level3" number="3.9.2">
-<h3><span class="header-section-number">3.9.2</span> Residuals as model diagnostic</h3>
+<div id="residuals-as-model-diagnostic" class="section level3 hasAnchor" number="3.9.2">
+<h3><span class="header-section-number">3.9.2</span> Residuals as model diagnostic<a href="write.html#residuals-as-model-diagnostic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Residuals are also a primary means of assessing the central linear regression assumption of constant variance (homoscedastic errors). We can check this assumption by plotting fitted values (<span class="math inline">\(\hat{y}\)</span>) versus residuals (<span class="math inline">\(y-\hat{y}\)</span>).</p>
 <p><img src="series_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 </div>
 </div>
-<div id="exercises-6" class="section level2" number="3.10">
-<h2><span class="header-section-number">3.10</span> Exercises 6</h2>
+<div id="exercises-6" class="section level2 hasAnchor" number="3.10">
+<h2><span class="header-section-number">3.10</span> Exercises 6<a href="write.html#exercises-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ol style="list-style-type: decimal">
 <li><p>Explore the relationship between clarity and price in the diamonds dataset using residuals (from the linear model fit using log(price) as a response, log(carat) and cut as predictors). What are your conclusions?</p></li>
 <li><p>Install the gapminder package <code>install.packages(“gapminder”)</code> and call it into your workspace using <code>library(“gapminder”)</code>. This loads a dataset named gapminder. Also use <code>library</code> to call the tidyverse package into your workspace.</p></li>

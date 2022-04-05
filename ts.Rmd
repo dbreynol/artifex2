@@ -90,27 +90,31 @@ A central concept in time series analysis is autocorrelation. This is the correl
 
 ## Exercises 7
 
-Write your own program to plot the autocorrelation function of a given series of values for a specified number of lags. The code below computes the lag 1 autocorrelation for the time series analysed above, $y$:
+Write your own program to plot the autocorrelation function of a given time series, for a specified number of lags.
 
-```{r echo=TRUE }
-h = 1 # how many lags
-cor.df = data.frame(y = as.numeric(y), y1 = c(window(y, start = start(y)[1] + h), rep(0, h)) ) # cor(y, y-h)
-acxf_lagh = with(cor.df[- ( (length(y) - h + 1):length(y)) ,], cor(y, y1)) # cor(y, y-h)
+The autocorrelation between a time series $y$ at lag $k$ is:
+
+\begin{equation}
+r_k = \frac{ \sum_{t = k + 1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y}) }{\sum_{t=1}^T (y_t - \bar{y})^2 }
+\end{equation}
+
+
+As an example, the code below generates the lag 1 autocorrelation for a time series $y$:
+
+```{r echo = T}
+# simulate time series data from an AR(1) model
+y = arima.sim(n=10, list(ar = c(.9), sd = 0.5))
+
+# split into two vectors; one that starts one lag value late (late1)
+# and one that ends one lag value early (early1)
+late1 = as.numeric( window(y, start = 2))
+early1 = as.numeric ( window(y, end = 9) )
+
+ybar = mean(as.numeric(y))
+
+sum ( (late1 - ybar ) * (early1 - ybar ) ) /  ( sum ( (y - ybar)^2 ) )
+
+# check using builtin function: (acf(y, type = "correlation"))
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, use that function in a new function to plot the first 5 $r_k$ values using barplots. Compare with <code>acf</code>.
