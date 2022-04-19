@@ -1,26 +1,11 @@
 library(astsa)
-
-window(globtempl, start = 2014)
-
+library(tidyverse)
 
 
-y = arima.sim(n=10, list(ar = c(.9), sd = 0.5))
+plot(lap[,3], main = "Cardiovascular Mortality")
+decomp = decompose(lap[,3])
+acf(diff_52, type = "partial", lag.max = 104)
 
-window(y, start = 2)
+mod = sarima(lap[,3], 2, 0, 0, 1, 1, 0, S = 52)
+sarima.for(lap[,3], 52, 2, 0, 0, 1, 1, 0, 52)
 
-
-cor( window(y, start = 2), window(y, end = 9) )
-
-cor( as.numeric( window(y, start = 2)), as.numeric ( window(y, end = 9) ) )
-(acf(y, type = "correlation"))
-
-x1 = as.numeric( window(y, start = 2))
-x2 = as.numeric ( window(y, end = 9) )
-
-xbar = mean(as.numeric(y))
-
-sum ( (x1 - xbar ) * (x2 -  xbar ) ) /  ( sum ( (y - mean(y))^2 ) )
-
-
-cor(x2, x1)
- 

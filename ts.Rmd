@@ -118,3 +118,71 @@ sum ( (late1 - ybar ) * (early1 - ybar ) ) /  ( sum ( (y - ybar)^2 ) )
 ```
 
 For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, optionally, use that function in a new function to plot the first 5 $r_k$ values using barplots. Compare with <code>acf</code>.
+
+
+## Teams Feedback 1
+
+**Team Shrek**
+
+1. Look at a decomposed version of your response variable. Figure out what the function <code>decompose</code> is doing. See the code below for cardiovascular mortality.
+
+```{r echo = T}
+plot(lap[,3], main = "Cardiovascular Mortality")
+decomp = decompose(lap[,3])
+plot(decomp)
+```
+
+2. Figure out what is driving the seasonality in mortality in LA. Do some research.
+
+3. Are there any outlier weeks in your data? What is causing them?
+
+4. Recall that standard time series models require stationary data (constant mean and variance over time). Inspect the seasonally differenced data ($x_t = y_t - y_{t-52}$) to see if it is stationary. See code below.
+
+```{r echo = T}
+diff_52 = diff(lap[,3],  lag = 52)
+plot(diff_52)
+```
+
+5. A potentially appropriate model for seasonal data like this is a seasonal AR model. The partial autocorrelation function is a way to select which terms to include in the model. See below.
+
+```{r echo=TRUE}
+acf(diff_52, type = "partial", lag.max = 104) # what terms to include
+# mod = sarima(lap[,3], 2, 0, 0, 1, 1, 0, S = 52)
+# sarima.for(lap[,3], 52, 2, 0, 0, 1, 1, 0, 52)
+```
+
+6. Examine scatterplots of your response variable and your potential predictors? Only use predictors if you have a reason for them (they may reasonably influence the response).
+
+**Team NBA 3**
+
+1. Convert your response and predictor variables into time series objects using <code>as.ts</code>, a function in the **astsa** package. Examine a decomposed version of each variable. Do these reveal anything interesting?
+
+2. See if you can attain a stationary time series for your response using a simple transformation (hint: <code>diff</code>). Once you obtain a stationary series, look at the partial autocorrelation of the series (hint: <code>acf( , type = "partial")</code>). Fit at AR model based on this plot.
+
+3. Examine scatterplots of your (stationary) response versus potential predictor variables. For example ($y_t - y_{t-1}$ versus $x_{t-1}$). Which predictors look like they are associated with the response?
+
+4. Based on 3, fit a linear regression and examine residuals as a function of time. Is there a trend?
+
+**Team Beast**
+
+1. Make scatterplots (in R) of your response versus each predictor. What are the relationships you observe?
+
+2. Fit a (multivariable) linear regression model to the (subset of) the data you deem relevant. See example below.
+
+```{r echo=TRUE}
+
+# model hwy MPG (hwy) as a function of engine displacement (displ) and year of mfg (year)
+
+lm(hwy ~ displ + year, data = mpg) %>% tidy() %>% kable()
+
+```
+
+3. Brainstorm ways to make this model better. In what way is it defificent? How you can address this?
+
+
+
+
+
+
+
+

@@ -23,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-04-05" />
+<meta name="date" content="2022-04-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -167,6 +167,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="ts.html"><a href="ts.html#example"><i class="fa fa-check"></i><b>4.1</b> Example<span></span></a></li>
 <li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation<span></span></a></li>
 <li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7<span></span></a></li>
+<li class="chapter" data-level="4.4" data-path="ts.html"><a href="ts.html#teams-feedback-1"><i class="fa fa-check"></i><b>4.4</b> Teams Feedback 1<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -248,6 +249,128 @@ r_k = \frac{ \sum_{t = k + 1}^{T} (y_t - \bar{y})(y_{t-k} - \bar{y}) }{\sum_{t=1
 <pre><code>## [1] 0.5773614</code></pre>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="ts.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># check using builtin function: (acf(y, type = &quot;correlation&quot;))</span></span></code></pre></div>
 <p>For your function, accept two arguments: the lag value and the time series. Output the acf for the given lag. Once you complete this, optionally, use that function in a new function to plot the first 5 <span class="math inline">\(r_k\)</span> values using barplots. Compare with <code>acf</code>.</p>
+</div>
+<div id="teams-feedback-1" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Teams Feedback 1<a href="ts.html#teams-feedback-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Team Shrek</strong></p>
+<ol style="list-style-type: decimal">
+<li>Look at a decomposed version of your response variable. Figure out what the function <code>decompose</code> is doing. See the code below for cardiovascular mortality.</li>
+</ol>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="ts.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lap[,<span class="dv">3</span>], <span class="at">main =</span> <span class="st">&quot;Cardiovascular Mortality&quot;</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="ts.html#cb18-1" aria-hidden="true" tabindex="-1"></a>decomp <span class="ot">=</span> <span class="fu">decompose</span>(lap[,<span class="dv">3</span>])</span>
+<span id="cb18-2"><a href="ts.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(decomp)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-36-2.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Figure out what is driving the seasonality in mortality in LA. Do some research.</p></li>
+<li><p>Are there any outlier weeks in your data? What is causing them?</p></li>
+<li><p>Recall that standard time series models require stationary data (constant mean and variance over time). Inspect the seasonally differenced data (<span class="math inline">\(x_t = y_t - y_{t-52}\)</span>) to see if it is stationary. See code below.</p></li>
+</ol>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="ts.html#cb19-1" aria-hidden="true" tabindex="-1"></a>diff_52 <span class="ot">=</span> <span class="fu">diff</span>(lap[,<span class="dv">3</span>],  <span class="at">lag =</span> <span class="dv">52</span>)</span>
+<span id="cb19-2"><a href="ts.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(diff_52)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<ol start="5" style="list-style-type: decimal">
+<li>A potentially appropriate model for seasonal data like this is a seasonal AR model. The partial autocorrelation function is a way to select which terms to include in the model. See below.</li>
+</ol>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="ts.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(diff_52, <span class="at">type =</span> <span class="st">&quot;partial&quot;</span>, <span class="at">lag.max =</span> <span class="dv">104</span>) <span class="co"># what terms to include</span></span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="ts.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mod = sarima(lap[,3], 2, 0, 0, 1, 1, 0, S = 52)</span></span>
+<span id="cb21-2"><a href="ts.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sarima.for(lap[,3], 52, 2, 0, 0, 1, 1, 0, 52)</span></span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>Examine scatterplots of your response variable and your potential predictors? Only use predictors if you have a reason for them (they may reasonably influence the response).</li>
+</ol>
+<p><strong>Team NBA 3</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Convert your response and predictor variables into time series objects using <code>as.ts</code>, a function in the <strong>astsa</strong> package. Examine a decomposed version of each variable. Do these reveal anything interesting?</p></li>
+<li><p>See if you can attain a stationary time series for your response using a simple transformation (hint: <code>diff</code>). Once you obtain a stationary series, look at the partial autocorrelation of the series (hint: <code>acf( , type = “partial”)</code>). Fit at AR model based on this plot.</p></li>
+<li><p>Examine scatterplots of your (stationary) response versus potential predictor variables. For example (<span class="math inline">\(y_t - y_{t-1}\)</span> versus <span class="math inline">\(x_{t-1}\)</span>). Which predictors look like they are associated with the response?</p></li>
+<li><p>Based on 3, fit a linear regression and examine residuals as a function of time. Is there a trend?</p></li>
+</ol>
+<p><strong>Team Beast</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Make scatterplots (in R) of your response versus each predictor. What are the relationships you observe?</p></li>
+<li><p>Fit a (multivariable) linear regression model to the (subset of) the data you deem relevant. See example below.</p></li>
+</ol>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="ts.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># model hwy MPG (hwy) as a function of engine displacement (displ) and year of mfg (year)</span></span>
+<span id="cb22-2"><a href="ts.html#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="ts.html#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(hwy <span class="sc">~</span> displ <span class="sc">+</span> year, <span class="at">data =</span> mpg) <span class="sc">%&gt;%</span> <span class="fu">tidy</span>() <span class="sc">%&gt;%</span> <span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+-276.154414
+</td>
+<td style="text-align:right;">
+111.1544378
+</td>
+<td style="text-align:right;">
+-2.484421
+</td>
+<td style="text-align:right;">
+0.0136861
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+displ
+</td>
+<td style="text-align:right;">
+-3.610986
+</td>
+<td style="text-align:right;">
+0.1938255
+</td>
+<td style="text-align:right;">
+-18.630090
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:right;">
+0.155793
+</td>
+<td style="text-align:right;">
+0.0555287
+</td>
+<td style="text-align:right;">
+2.805632
+</td>
+<td style="text-align:right;">
+0.0054500
+</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" style="list-style-type: decimal">
+<li>Brainstorm ways to make this model better. In what way is it defificent? How you can address this?</li>
+</ol>
 
 </div>
 </div>
