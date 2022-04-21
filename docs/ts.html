@@ -23,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-04-19" />
+<meta name="date" content="2022-04-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -168,6 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="ts.html"><a href="ts.html#autocorrelation"><i class="fa fa-check"></i><b>4.2</b> Autocorrelation<span></span></a></li>
 <li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7<span></span></a></li>
 <li class="chapter" data-level="4.4" data-path="ts.html"><a href="ts.html#teams-feedback-1"><i class="fa fa-check"></i><b>4.4</b> Teams Feedback 1<span></span></a></li>
+<li class="chapter" data-level="4.5" data-path="ts.html"><a href="ts.html#team-shrek"><i class="fa fa-check"></i><b>4.5</b> Team Shrek<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -370,6 +371,111 @@ year
 </table>
 <ol start="3" style="list-style-type: decimal">
 <li>Brainstorm ways to make this model better. In what way is it defificent? How you can address this?</li>
+</ol>
+</div>
+<div id="team-shrek" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Team Shrek<a href="ts.html#team-shrek" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Find a stationary version of your response variable. For example, is the series <span class="math inline">\(x_t = y_t - y_{t-52}\)</span> stationary? Let’s plot it.</p>
+<p><img src="series_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>Ok, so let’s fit a model in which <span class="math inline">\(x_t\)</span> is the response and we use past values of the response to predict the current value. This is called a seasonal autoregressive model. Which past values should we include? To figure this out, let’s use a partial autocorrelation plot and see which values exceed the dotted lines.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="ts.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(diff_52, <span class="at">type =</span> <span class="st">&quot;partial&quot;</span>, <span class="at">lag.max =</span> <span class="dv">104</span>) <span class="co"># what terms to include</span></span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p>It looks like the last two periods (<span class="math inline">\(x_{t-1}, x_{t-2}\)</span>) have significant correlation with the response, as well as the one and two year ago values, <span class="math inline">\(x_{t-52}, x_{t-104}\)</span>. We can fit this model using the <code>sarima</code> function as,</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="ts.html#cb24-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">sarima</span>(lap[,<span class="dv">1</span>], <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="at">S =</span> <span class="dv">52</span>)</span></code></pre></div>
+<pre><code>## initial  value 2.633438 
+## iter   2 value 2.341247
+## iter   3 value 2.211873
+## iter   4 value 2.193267
+## iter   5 value 2.192468
+## iter   6 value 2.191507
+## iter   7 value 2.191393
+## iter   8 value 2.191328
+## iter   9 value 2.191281
+## iter  10 value 2.191279
+## iter  11 value 2.191279
+## iter  11 value 2.191279
+## iter  11 value 2.191279
+## final  value 2.191279 
+## converged
+## initial  value 2.236758 
+## iter   2 value 2.236628
+## iter   3 value 2.236032
+## iter   4 value 2.235849
+## iter   5 value 2.235836
+## iter   6 value 2.235594
+## iter   7 value 2.234796
+## iter   7 value 2.236410
+## iter   8 value 2.234287
+## iter   9 value 2.233367
+## iter  10 value 2.233000
+## iter  11 value 2.232781
+## iter  11 value 2.235340
+## final  value 2.232781 
+## converged</code></pre>
+<p><img src="series_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p>You can also see forecasts from this model, using <code>sarima.for</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="ts.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sarima.for</span>(lap[,<span class="dv">1</span>], <span class="dv">52</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="at">S =</span> <span class="dv">52</span>)</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<pre><code>## $pred
+## Time Series:
+## Start = c(1979, 41) 
+## End = c(1980, 40) 
+## Frequency = 52 
+##  [1] 165.1319 166.0486 170.2564 165.4595 174.8817 179.0917 181.3936 173.6201
+##  [9] 177.6535 179.4767 175.5550 173.1709 173.4230 171.4975 163.2444 165.7421
+## [17] 168.6299 166.2064 165.9588 164.3484 164.5359 163.1166 162.5954 160.1714
+## [25] 153.7283 159.6896 160.5756 157.0210 155.8819 154.4239 157.5965 151.3908
+## [33] 150.8975 150.6853 159.0478 151.5840 156.5018 152.9282 155.7816 153.5914
+## [41] 154.6644 154.9873 156.8050 152.9162 165.0583 165.6755 148.4592 159.1584
+## [49] 150.6696 160.5334 160.4813 163.5727
+## 
+## $se
+## Time Series:
+## Start = c(1979, 41) 
+## End = c(1980, 40) 
+## Frequency = 52 
+##  [1]  9.032122  9.329440 10.260681 10.464141 10.706507 10.800213 10.876605
+##  [8] 10.914541 10.940804 10.955388 10.964781 10.970264 10.973683 10.975724
+## [15] 10.976978 10.977735 10.978197 10.978476 10.978647 10.978750 10.978813
+## [22] 10.978851 10.978874 10.978888 10.978897 10.978902 10.978905 10.978907
+## [29] 10.978908 10.978909 10.978909 10.978910 10.978910 10.978910 10.978910
+## [36] 10.978910 10.978910 10.978910 10.978910 10.978910 10.978910 10.978910
+## [43] 10.978910 10.978910 10.978910 10.978910 10.978910 10.978910 10.978910
+## [50] 10.978910 10.978910 10.978910</code></pre>
+<p>How about adding in external regressors? You can do this using the <code>xreg</code> argument within <code>sarima</code>. For instance, a model that includes <code>part</code> as a regressor is:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="ts.html#cb28-1" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">=</span> <span class="fu">sarima</span>(lap[,<span class="dv">1</span>], <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="at">S =</span> <span class="dv">52</span>, <span class="at">xreg =</span> lap[,<span class="dv">11</span>])</span></code></pre></div>
+<pre><code>## initial  value 2.632571 
+## iter   2 value 2.339327
+## iter   3 value 2.191723
+## iter   4 value 2.167738
+## iter   5 value 2.167063
+## iter   6 value 2.167003
+## iter   7 value 2.166931
+## iter   8 value 2.166923
+## iter   9 value 2.166922
+## iter   9 value 2.166922
+## iter   9 value 2.166922
+## final  value 2.166922 
+## converged
+## initial  value 2.205465 
+## iter   2 value 2.205365
+## iter   3 value 2.204903
+## iter   4 value 2.204665
+## iter   5 value 2.203473
+## iter   6 value 2.202919
+## iter   7 value 2.202619
+## iter   8 value 2.201825
+## iter   9 value 2.201655
+## iter   9 value 2.203394
+## iter   9 value 2.202648
+## final  value 2.201655 
+## converged</code></pre>
+<p><img src="series_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
+<p><strong>Questions</strong></p>
+<ol style="list-style-type: decimal">
+<li>How much better is the model (AIC) when the regressor is included?</li>
+<li>Forecast new values using the model with the regressor. You will need predicted values of the regressor. There are many ways to do this (such as using a past year’s value or fitting a model to the regressor itself using the steps above).</li>
+<li>What are your conclusions?</li>
 </ol>
 
 </div>

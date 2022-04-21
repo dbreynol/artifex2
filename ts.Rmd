@@ -143,6 +143,7 @@ diff_52 = diff(lap[,3],  lag = 52)
 plot(diff_52)
 ```
 
+
 5. A potentially appropriate model for seasonal data like this is a seasonal AR model. The partial autocorrelation function is a way to select which terms to include in the model. See below.
 
 ```{r echo=TRUE}
@@ -180,7 +181,44 @@ lm(hwy ~ displ + year, data = mpg) %>% tidy() %>% kable()
 3. Brainstorm ways to make this model better. In what way is it defificent? How you can address this?
 
 
+## Team Shrek
 
+Find a stationary version of your response variable. For example,  is the series $x_t = y_t - y_{t-52}$ stationary? Let's plot it.
+
+```{r}
+diff_52 = diff(lap[,1],  lag = 52)
+plot(diff_52)
+```
+
+Ok, so let's fit a model in which $x_t$ is the response and we use past values of the response to predict the current value. This is called a seasonal autoregressive model. Which past values should we include? To figure this out, let's use a partial autocorrelation plot and see which values exceed the dotted lines.
+
+```{r echo=TRUE}
+acf(diff_52, type = "partial", lag.max = 104) # what terms to include
+```
+
+It looks like the last two periods ($x_{t-1}, x_{t-2}$) have significant correlation with the response, as well as the one and two year ago values, $x_{t-52}, x_{t-104}$. We can fit this model using the <code>sarima</code> function as,
+
+```{r message=F, warning=FALSE, echo = T}
+mod1 = sarima(lap[,1], 2, 0, 0, 2, 1, 0, S = 52)
+```
+
+You can also see forecasts from this model, using <code>sarima.for</code>:
+
+```{r echo = T}
+sarima.for(lap[,1], 52, 2, 0, 0, 2, 1, 0, S = 52)
+```
+
+How about adding in external regressors? You can do this using the <code>xreg</code> argument within <code>sarima</code>. For instance, a model that includes <code>part</code> as a regressor is:
+
+```{r echo = T, message=F, warning=FALSE}
+mod1 = sarima(lap[,1], 2, 0, 0, 2, 1, 0, S = 52, xreg = lap[,11])
+```
+
+**Questions**
+
+1. How much better is the model (AIC) when the regressor is included?
+2. Forecast new values using the model with the regressor. You will need predicted values of the regressor. There are many ways to do this (such as using a past year's value or fitting a model to the regressor itself using the steps above).
+3. What are your conclusions?
 
 
 
