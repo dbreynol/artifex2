@@ -44,3 +44,5 @@ m1 = arima(yt, order = c(1, 1, 0), xreg = xt)
 predict(m1, n.ahead = 5, newxreg = window(xt, start = 39))
 
 
+
+

@@ -271,3 +271,22 @@ predict(m1, n.ahead = 5, newxreg = window(xt, start = 39))
 3. Other options could include adding other predictors, different model type, expanding on EDA (can you learn anything from team level trends?)
 
 
+
+## Team Beast
+
+
+```{r echo=TRUE}
+
+beast = read.csv( 'MrBeast_youtube_stats_cleaned (1).csv' ) 
+
+names(beast)[8] = 'vcmill'
+beast$publish_time = as.numeric ( substr( beast$publishTime.2 , 1 , 1) )
+
+mod = lm(vcmill ~ duration_seconds + as.factor(publish_time) , data = beast)
+summary(mod)
+
+```
+
+
+
+
