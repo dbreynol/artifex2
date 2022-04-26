@@ -221,6 +221,53 @@ mod1 = sarima(lap[,1], 2, 0, 0, 2, 1, 0, S = 52, xreg = lap[,11])
 3. What are your conclusions?
 
 
+## Team NBA
 
+1. Data input and proceessing
+
+```{r echo = T}
+nba.dat = read.csv('Team_stats_per_game.csv')
+
+
+# filter to start in 1980 (when 3 pointers started)
+# and create a response variable - 3 point attempts, averaged across teams
+# and predictor - mean 3 point conversion pct.
+nba.processed = nba.dat %>% 
+  filter(season > 1979) %>%
+  group_by(season) %>%
+  summarise(y = mean(x3pa_per_game), x = mean(x3p_percent))
+
+```
+
+2. Make the response into a time series object and examine the autocorrelation. Lags with significant values in the plot should be included in an autoregressive model. This plot seems to suggest an order one AR model with the lag one differences as the response.
+
+```{r echo = T}
+# make the response into a time series object - which clearly has an increasing trend
+# inspect the lag 1 differences for stationarity - looks good
+yt = as.ts(nba.processed$y, start = 1980, end = 2022)
+plot(diff(yt))
+acf(yt, type = "partial") # order one AR model seems appropriate
+```
+
+3. Let's fit the model suggested above and examine what it predicts for the next five years.
+
+```{r echo = T}
+m0 = arima(yt, order = c(1, 1, 0)) # fit AR model with one past period to the differenced data
+predict(m0, n.ahead = 5) # predict 5 years into the future
+```
+
+4. Now let's add a predictor variable, the 3 point conversion rate. First, let's make it into a time series object and then include as a predictor in the AR model. We can also use it to make predictions.
+
+```{r echo = T}
+xt = as.ts(nba.processed$x, start = 1980, end = 2022)
+m1 = arima(yt, order = c(1, 1, 0), xreg = xt)
+predict(m1, n.ahead = 5, newxreg = window(xt, start = 39))
+```
+
+**Questions**
+
+1. How much better is the model (AIC) when the regressor is included?
+2. What are your interpretations of the model? What are the limitations?
+3. Other options could include adding other predictors, different model type, expanding on EDA (can you learn anything from team level trends?)
 
 

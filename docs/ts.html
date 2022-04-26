@@ -23,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-04-21" />
+<meta name="date" content="2022-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,6 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3" data-path="ts.html"><a href="ts.html#exercises-7"><i class="fa fa-check"></i><b>4.3</b> Exercises 7<span></span></a></li>
 <li class="chapter" data-level="4.4" data-path="ts.html"><a href="ts.html#teams-feedback-1"><i class="fa fa-check"></i><b>4.4</b> Teams Feedback 1<span></span></a></li>
 <li class="chapter" data-level="4.5" data-path="ts.html"><a href="ts.html#team-shrek"><i class="fa fa-check"></i><b>4.5</b> Team Shrek<span></span></a></li>
+<li class="chapter" data-level="4.6" data-path="ts.html"><a href="ts.html#team-nba"><i class="fa fa-check"></i><b>4.6</b> Team NBA<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -476,6 +477,75 @@ year
 <li>How much better is the model (AIC) when the regressor is included?</li>
 <li>Forecast new values using the model with the regressor. You will need predicted values of the regressor. There are many ways to do this (such as using a past year’s value or fitting a model to the regressor itself using the steps above).</li>
 <li>What are your conclusions?</li>
+</ol>
+</div>
+<div id="team-nba" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> Team NBA<a href="ts.html#team-nba" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Data input and proceessing</li>
+</ol>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="ts.html#cb30-1" aria-hidden="true" tabindex="-1"></a>nba.dat <span class="ot">=</span> <span class="fu">read.csv</span>(<span class="st">&#39;Team_stats_per_game.csv&#39;</span>)</span>
+<span id="cb30-2"><a href="ts.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="ts.html#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="ts.html#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="co"># filter to start in 1980 (when 3 pointers started)</span></span>
+<span id="cb30-5"><a href="ts.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and create a response variable - 3 point attempts, averaged across teams</span></span>
+<span id="cb30-6"><a href="ts.html#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co"># and predictor - mean 3 point conversion pct.</span></span>
+<span id="cb30-7"><a href="ts.html#cb30-7" aria-hidden="true" tabindex="-1"></a>nba.processed <span class="ot">=</span> nba.dat <span class="sc">%&gt;%</span> </span>
+<span id="cb30-8"><a href="ts.html#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(season <span class="sc">&gt;</span> <span class="dv">1979</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-9"><a href="ts.html#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(season) <span class="sc">%&gt;%</span></span>
+<span id="cb30-10"><a href="ts.html#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">y =</span> <span class="fu">mean</span>(x3pa_per_game), <span class="at">x =</span> <span class="fu">mean</span>(x3p_percent))</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Make the response into a time series object and examine the autocorrelation. Lags with significant values in the plot should be included in an autoregressive model. This plot seems to suggest an order one AR model with the lag one differences as the response.</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="ts.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make the response into a time series object - which clearly has an increasing trend</span></span>
+<span id="cb31-2"><a href="ts.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># inspect the lag 1 differences for stationarity - looks good</span></span>
+<span id="cb31-3"><a href="ts.html#cb31-3" aria-hidden="true" tabindex="-1"></a>yt <span class="ot">=</span> <span class="fu">as.ts</span>(nba.processed<span class="sc">$</span>y, <span class="at">start =</span> <span class="dv">1980</span>, <span class="at">end =</span> <span class="dv">2022</span>)</span>
+<span id="cb31-4"><a href="ts.html#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">diff</span>(yt))</span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="ts.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(yt, <span class="at">type =</span> <span class="st">&quot;partial&quot;</span>) <span class="co"># order one AR model seems appropriate</span></span></code></pre></div>
+<p><img src="series_files/figure-html/unnamed-chunk-46-2.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Let’s fit the model suggested above and examine what it predicts for the next five years.</li>
+</ol>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="ts.html#cb33-1" aria-hidden="true" tabindex="-1"></a>m0 <span class="ot">=</span> <span class="fu">arima</span>(yt, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="co"># fit AR model with one past period to the differenced data</span></span>
+<span id="cb33-2"><a href="ts.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(m0, <span class="at">n.ahead =</span> <span class="dv">5</span>) <span class="co"># predict 5 years into the future</span></span></code></pre></div>
+<pre><code>## $pred
+## Time Series:
+## Start = 44 
+## End = 48 
+## Frequency = 1 
+## [1] 35.40778 35.50242 35.54184 35.55827 35.56512
+## 
+## $se
+## Time Series:
+## Start = 44 
+## End = 48 
+## Frequency = 1 
+## [1] 1.367193 2.370759 3.216743 3.938797 4.568347</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Now let’s add a predictor variable, the 3 point conversion rate. First, let’s make it into a time series object and then include as a predictor in the AR model. We can also use it to make predictions.</li>
+</ol>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="ts.html#cb35-1" aria-hidden="true" tabindex="-1"></a>xt <span class="ot">=</span> <span class="fu">as.ts</span>(nba.processed<span class="sc">$</span>x, <span class="at">start =</span> <span class="dv">1980</span>, <span class="at">end =</span> <span class="dv">2022</span>)</span>
+<span id="cb35-2"><a href="ts.html#cb35-2" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">=</span> <span class="fu">arima</span>(yt, <span class="at">order =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="at">xreg =</span> xt)</span>
+<span id="cb35-3"><a href="ts.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(m1, <span class="at">n.ahead =</span> <span class="dv">5</span>, <span class="at">newxreg =</span> <span class="fu">window</span>(xt, <span class="at">start =</span> <span class="dv">39</span>))</span></code></pre></div>
+<pre><code>## $pred
+## Time Series:
+## Start = 44 
+## End = 48 
+## Frequency = 1 
+## [1] 35.88737 35.79015 35.93461 36.27838 35.79993
+## 
+## $se
+## Time Series:
+## Start = 44 
+## End = 48 
+## Frequency = 1 
+## [1] 1.258781 2.142143 2.871417 3.487647 4.022883</code></pre>
+<p><strong>Questions</strong></p>
+<ol style="list-style-type: decimal">
+<li>How much better is the model (AIC) when the regressor is included?</li>
+<li>What are your interpretations of the model? What are the limitations?</li>
+<li>Other options could include adding other predictors, different model type, expanding on EDA (can you learn anything from team level trends?)</li>
 </ol>
 
 </div>
