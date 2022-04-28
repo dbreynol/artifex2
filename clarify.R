@@ -45,4 +45,23 @@ predict(m1, n.ahead = 5, newxreg = window(xt, start = 39))
 
 
 
+beast = read.csv( 'MrBeast_youtube_stats_cleaned (1).csv' ) 
+library(lubridate)
+
+
+
+
+
+
+beast$publish_time = as.numeric ( substr( beast$publishTime.2 , 1 , 1) ) # hour
+beast$publishTime.1 = mdy(beast$publishTime.1)
+beast$d_ofweek = factor( wday(beast$publishTime.1, label = T), ordered = F)
+beast$year = year(beast$publishTime.1)
+
+mod = lm(vcmill ~ duration_seconds + as.factor(publish_time) + d_ofweek + as.factor(beast$year), data = beast)
+summary(mod)
+
+beast[ which.max( residuals(mod) ), ] # maximum residual (did MUCH better than the model predicts)
+beast[ which.min( residuals(mod) ), ] # minimum residual (did MUCH worse than the model predicts)
+
 

@@ -23,7 +23,7 @@
 <meta name="author" content="David Reynolds" />
 
 
-<meta name="date" content="2022-04-26" />
+<meta name="date" content="2022-04-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,6 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.4" data-path="ts.html"><a href="ts.html#teams-feedback-1"><i class="fa fa-check"></i><b>4.4</b> Teams Feedback 1<span></span></a></li>
 <li class="chapter" data-level="4.5" data-path="ts.html"><a href="ts.html#team-shrek"><i class="fa fa-check"></i><b>4.5</b> Team Shrek<span></span></a></li>
 <li class="chapter" data-level="4.6" data-path="ts.html"><a href="ts.html#team-nba"><i class="fa fa-check"></i><b>4.6</b> Team NBA<span></span></a></li>
+<li class="chapter" data-level="4.7" data-path="ts.html"><a href="ts.html#team-beast"><i class="fa fa-check"></i><b>4.7</b> Team Beast<span></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
@@ -547,6 +548,77 @@ year
 <li>What are your interpretations of the model? What are the limitations?</li>
 <li>Other options could include adding other predictors, different model type, expanding on EDA (can you learn anything from team level trends?)</li>
 </ol>
+</div>
+<div id="team-beast" class="section level2 hasAnchor" number="4.7">
+<h2><span class="header-section-number">4.7</span> Team Beast<a href="ts.html#team-beast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="ts.html#cb37-1" aria-hidden="true" tabindex="-1"></a>beast <span class="ot">=</span> <span class="fu">read.csv</span>( <span class="st">&#39;MrBeast_youtube_stats_cleaned (1).csv&#39;</span> ) </span>
+<span id="cb37-2"><a href="ts.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="ts.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># data processing</span></span>
+<span id="cb37-4"><a href="ts.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(beast)[<span class="dv">8</span>] <span class="ot">=</span> <span class="st">&#39;vcmill&#39;</span> <span class="co"># rename response variable</span></span>
+<span id="cb37-5"><a href="ts.html#cb37-5" aria-hidden="true" tabindex="-1"></a>beast<span class="sc">$</span>publish_time <span class="ot">=</span> <span class="fu">as.numeric</span> ( <span class="fu">substr</span>( beast<span class="sc">$</span>publishTime<span class="fl">.2</span> , <span class="dv">1</span> , <span class="dv">1</span>) ) <span class="co"># hour of publish </span></span>
+<span id="cb37-6"><a href="ts.html#cb37-6" aria-hidden="true" tabindex="-1"></a>beast<span class="sc">$</span>publishTime<span class="fl">.1</span> <span class="ot">=</span> <span class="fu">mdy</span>(beast<span class="sc">$</span>publishTime<span class="fl">.1</span>) <span class="co"># coerce this into a date that R recognizes</span></span>
+<span id="cb37-7"><a href="ts.html#cb37-7" aria-hidden="true" tabindex="-1"></a>beast<span class="sc">$</span>d_ofweek <span class="ot">=</span> <span class="fu">factor</span>( <span class="fu">wday</span>(beast<span class="sc">$</span>publishTime<span class="fl">.1</span>, <span class="at">label =</span> T), <span class="at">ordered =</span> F) <span class="co"># day of week</span></span>
+<span id="cb37-8"><a href="ts.html#cb37-8" aria-hidden="true" tabindex="-1"></a>beast<span class="sc">$</span>year <span class="ot">=</span> <span class="fu">year</span>(beast<span class="sc">$</span>publishTime<span class="fl">.1</span>) <span class="co"># year</span></span></code></pre></div>
+<p>Let’s fit the following model,</p>
+<p><span class="math display">\[\begin{align}
+\text{views} = \beta_0 + \beta_1 \text{duration} + \beta_2 \times \text{publish_hour} + \beta_3 \times \text{weekday} +
+\beta_4 \times \text{year} 
+\end{align}\]</span></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="ts.html#cb38-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">=</span> <span class="fu">lm</span>(vcmill <span class="sc">~</span> duration_seconds <span class="sc">+</span> <span class="fu">as.factor</span>(publish_time) <span class="sc">+</span> d_ofweek <span class="sc">+</span> <span class="fu">as.factor</span>(beast<span class="sc">$</span>year), <span class="at">data =</span> beast)</span>
+<span id="cb38-2"><a href="ts.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = vcmill ~ duration_seconds + as.factor(publish_time) + 
+##     d_ofweek + as.factor(beast$year), data = beast)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -56.800 -15.579  -1.046   9.881 101.910 
+## 
+## Coefficients:
+##                             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)               -3.739e+00  1.284e+01  -0.291    0.771    
+## duration_seconds          -4.510e-06  2.327e-04  -0.019    0.985    
+## as.factor(publish_time)2   3.116e+00  2.171e+01   0.144    0.886    
+## as.factor(publish_time)3  -9.402e-01  1.311e+01  -0.072    0.943    
+## as.factor(publish_time)4   1.021e+01  1.159e+01   0.881    0.379    
+## as.factor(publish_time)5   6.848e+00  1.171e+01   0.585    0.559    
+## as.factor(publish_time)6   4.220e+00  1.146e+01   0.368    0.713    
+## as.factor(publish_time)7   6.096e-01  1.255e+01   0.049    0.961    
+## as.factor(publish_time)8   3.783e+00  2.834e+01   0.133    0.894    
+## as.factor(publish_time)9  -6.218e+00  1.433e+01  -0.434    0.665    
+## d_ofweekMon               -6.603e+00  9.732e+00  -0.679    0.498    
+## d_ofweekTue               -1.531e-03  8.046e+00   0.000    1.000    
+## d_ofweekWed                8.007e+00  8.462e+00   0.946    0.345    
+## d_ofweekThu                3.195e+00  7.106e+00   0.450    0.653    
+## d_ofweekFri                1.720e-01  7.231e+00   0.024    0.981    
+## d_ofweekSat                4.831e+00  6.541e+00   0.739    0.461    
+## as.factor(beast$year)2014  1.047e+00  1.163e+01   0.090    0.928    
+## as.factor(beast$year)2015 -2.738e-02  9.879e+00  -0.003    0.998    
+## as.factor(beast$year)2016  1.309e+01  1.306e+01   1.002    0.317    
+## as.factor(beast$year)2017  1.942e+01  1.308e+01   1.484    0.139    
+## as.factor(beast$year)2018  3.957e+01  9.557e+00   4.141 4.92e-05 ***
+## as.factor(beast$year)2019  6.469e+01  1.004e+01   6.446 7.07e-10 ***
+## as.factor(beast$year)2020  8.007e+01  1.048e+01   7.642 6.35e-13 ***
+## as.factor(beast$year)2021  6.818e+01  1.071e+01   6.363 1.12e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 25.86 on 222 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.633,  Adjusted R-squared:  0.5949 
+## F-statistic: 16.65 on 23 and 222 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>This model is not terrible. It explains around 60 percent of the variation in views. Let’s dig into the residuals and see what we can learn from them. The code below gets the biggest and smallest residuals. What videos are these? Why do they have views that are so different from what the model predicts?</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="ts.html#cb40-1" aria-hidden="true" tabindex="-1"></a>beast[ <span class="fu">which.max</span>( <span class="fu">residuals</span>(mod) ), ] <span class="co"># maximum residual (did MUCH better than the model predicts)</span></span></code></pre></div>
+<pre><code>##     duration_seconds viewCount likeCount commentCount contentDetails.duration
+## 132              891 151143603   3966861       136009              0.00:14:51
+##     publishTime.1 publishTime.2   vcmill publish_time d_ofweek year
+## 132    2018-11-22    4:08:01 PM 151.1436            4      Thu 2018</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="ts.html#cb42-1" aria-hidden="true" tabindex="-1"></a>beast[ <span class="fu">which.min</span>( <span class="fu">residuals</span>(mod) ), ] <span class="co"># minimum residual (did MUCH worse than the model predicts)</span></span></code></pre></div>
+<pre><code>##    duration_seconds viewCount likeCount commentCount contentDetails.duration
+## 46              382  32929921   2155684        98498              0.00:06:22
+##    publishTime.1 publishTime.2  vcmill publish_time d_ofweek year
+## 46    2020-09-17    4:00:05 PM 32.9299            4      Thu 2020</code></pre>
 
 </div>
 </div>

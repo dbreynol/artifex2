@@ -279,11 +279,35 @@ predict(m1, n.ahead = 5, newxreg = window(xt, start = 39))
 
 beast = read.csv( 'MrBeast_youtube_stats_cleaned (1).csv' ) 
 
-names(beast)[8] = 'vcmill'
-beast$publish_time = as.numeric ( substr( beast$publishTime.2 , 1 , 1) )
+# data processing
+names(beast)[8] = 'vcmill' # rename response variable
+beast$publish_time = as.numeric ( substr( beast$publishTime.2 , 1 , 1) ) # hour of publish 
+beast$publishTime.1 = mdy(beast$publishTime.1) # coerce this into a date that R recognizes
+beast$d_ofweek = factor( wday(beast$publishTime.1, label = T), ordered = F) # day of week
+beast$year = year(beast$publishTime.1) # year
 
-mod = lm(vcmill ~ duration_seconds + as.factor(publish_time) , data = beast)
+```
+
+Let's fit the following model, 
+
+\begin{align}
+\text{views} = \beta_0 + \beta_1 \text{duration} + \beta_2 \times \text{publish_hour} + \beta_3 \times \text{weekday} +
+\beta_4 \times \text{year} 
+\end{align}
+
+```{r echo=TRUE}
+
+mod = lm(vcmill ~ duration_seconds + as.factor(publish_time) + d_ofweek + as.factor(beast$year), data = beast)
 summary(mod)
+
+```
+
+This model is not terrible. It explains around 60 percent of the variation in views. Let's dig into the residuals and see what we can learn from them. The code below gets the biggest and smallest residuals. What videos are these? Why do they have views that are so different from what the model predicts?
+
+
+```{r echo = T}
+beast[ which.max( residuals(mod) ), ] # maximum residual (did MUCH better than the model predicts)
+beast[ which.min( residuals(mod) ), ] # minimum residual (did MUCH worse than the model predicts)
 
 ```
 

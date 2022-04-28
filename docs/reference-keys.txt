@@ -25,3 +25,4 @@ exercises-7
 teams-feedback-1
 team-shrek
 team-nba
+team-beast
